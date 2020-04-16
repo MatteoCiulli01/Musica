@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="sid-plesk">
+	<head>
+		<title>Musica</title>
+		<meta name="copyright" content="Copyright 1999-2018. Plesk International GmbH. All rights reserved.">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" href="css/style.css" type="text/css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+		<script>
+			function output(array, classname, div)
+			{
+				document.getElementById(div).innerHTML = "";
+                if(!Array.isArray(array))
+                {
+                    array=Array.from(array); //sarà un array lo devi accettare
+                }
+				
+                //per ogni classe vengono creati gli elementi html di una tabella
+				var i=1;
+                for(var element in array) //ciclo per ogni oggetto nell'array
+                {
+                    var obj = document.createElement("div");
+                    obj.className = classname;
+                    obj.id=classname.slice(0,3)+i; //esempio classname=artist e i=1 --> art1
+					
+					for(var property in Object.values(array[element])) //ciclo per ogni proprietà dell'oggetto
+					{
+						var key; //nome della proprietà
+						var proprieta; //valore della proprietà
+						
+						//generazione delle proprietà dell'oggetto in HTML
+						if(property == 5 && classname=="canzone") //output dell'url canzone
+						{
+							var br = document.createElement("br");
+							var divObj = document.createElement("audio");
+							divObj.classname="canzoneaudio";
+							divObj.setAttribute("controls",true);
+							var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
+							divObj.innerHTML ='<source src="'+urlcanzone+'" />';
+							obj.appendChild(br);
+							obj.appendChild(divObj);
+							//var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
+							//document.getElementById(div).innerHTML+='<audio controls><source src="'+urlcanzone+'" /></audio>';
+							//non inserisce l'url delle canzoni
+						}
+						else if(property == 0 && classname=="canzone") //output del titolo della canzone
+						{
+							var br = document.createElement("br");
+							var divObj	= document.createElement("div");
+							proprieta = Object.values(array[element])[property];
+							key = Object.keys(array[element])[property];
+							var text = document.createTextNode(proprieta);
+							divObj.appendChild(text);
+							divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+							obj.appendChild(divObj);
+							obj.appendChild(br);
+						}
+						else
+						{
+							var divObj	= document.createElement("div");
+							proprieta = Object.values(array[element])[property];
+							key = Object.keys(array[element])[property];
+							var text = document.createTextNode(proprieta);
+							divObj.appendChild(text);
+							divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+							obj.appendChild(divObj);
+						}
+                    	document.getElementById(div).appendChild(obj);
+					}
+					i++;
+                }
+			}
+			function getArtisti()
+			{
+				//preparo la richiesta ajax
+				let xhr = new XMLHttpRequest();
+				xhr.open("GET", 'api/apiArtist.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+				//configuro la callback di risposta ok
+				xhr.onload = function()
+				{
+					var obj = JSON.parse(xhr.response); //viene creato un array dal JSON ricevuto dopo aver modificato la risposta per creare l'array in modo corretto
+					output(obj, "artista", "contentArtisti");
+				};
+				//configuro la callback di errore
+				xhr.onerror = function()
+				{ 
+					alert('Errore');
+				};
+				//invio la richiesta ajax
+				xhr.send();
+			}
+			
+			function getCanzoni()
+			{
+				//preparo la richiesta ajax
+				let xhr = new XMLHttpRequest();
+				xhr.open("GET", 'api/apiSong.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+				//configuro la callback di risposta ok
+				xhr.onload = function()
+				{
+					var obj = JSON.parse(xhr.response); //viene creato un array dal JSON ricevuto dopo aver modificato la risposta per creare l'array in modo corretto
+					output(obj, "canzone", "contentCanzoni");
+				};
+				//configuro la callback di errore
+				xhr.onerror = function()
+				{ 
+					alert('Errore');
+				};
+				//invio la richiesta ajax
+				xhr.send();
+			}
+		</script>
+	</head>
+	<body onload="getArtisti(); getCanzoni();" class="text-light" style="background-color:#121212; ">
+		<div class="page-container">
+			<!-- start: PAGE HEADER-->
+			<div class="page-header-wrapper">
+				<div class="page-header" style="background-color: #222a32;">
+					<img src="img/Musica.jpeg" style="width:50px; height:50px">
+					<a href="SignUp.php">Sign Up</a>
+				</div>
+			</div>
+			<!-- end: PAGE HEADER-->
+
+			<!-- start: PAGE CONTENT-->
+			<div class="page-content-wrapper">
+				<div class="page-content">
+					<h2>Artisti</h2>
+					<div id="contentArtisti"></div>
+					<br>
+					<h2>Canzoni</h2>
+					<div id="contentCanzoni"></div>
+				</div>
+			</div>
+			<!-- end: PAGE CONTENT-->
+
+			<!-- start: PAGE FOOTER-->
+			<div class="page-footer-wrapper">
+				<div class="page-footer">
+					Sito creato da Matteo Ciulli, Jacopo Famà, Lorenzo Lombardi e Mauro Lapio. 2020
+				</div>
+			</div>
+			<!-- end: PAGE FOOTER-->
+		</div>
+	</body>
+	<style>
+		.canzone, .artista
+		{
+			width:50%;
+			border-top:solid white 1px;
+			border-bottom:solid white 1px;
+			white-space: nowrap;
+			
+		}
+		
+		.canzone > div, .artista > div
+		{
+			display: inline-block;
+			padding:5px;
+			font-size:16px;
+			
+		}
+		
+		.canzonetitolo
+		{
+			font-weight:bold;
+			font-size:20px !important;
+		}
+		
+		.canzoneanno:before
+		{
+			content:"-\00a0";
+		}
+		
+		.canzoneaudio
+		{
+			word-break:break-all;
+			white-space: pre-wrap;
+		}
+	</style>
+</html>
