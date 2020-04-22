@@ -6,7 +6,7 @@
 	{
 		case 'GET':
 			$id = '';
-			if($_GET['id'])
+			if(isset($_GET['id']))
 			{
 				$id = $_GET['id'];
 				$artist->_id = $id;
