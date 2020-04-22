@@ -42,14 +42,14 @@
 				</div>
 			<div id="modulo">
 				<form method="post" >
-						<h2>Modulo di iscrizione</h2>
-						<div id="Cognome">
-						<label >Cognome</label>
-							<input value= "<?php if(isset($_SESSION["Cognome"])== true){ echo $_SESSION["Cognome"]; }?>" type="Surname" class="form-control" name="Surname" placeholder="inserisci qui il tuo cognome" required>
-						</div>
-						<div id="Nome">
+                        <h2>Modulo di iscrizione</h2>
+                        <div id="Nome">
 							<label>Nome</label>
-							<input value= "<?php if(isset($_SESSION["Nome"])== true){echo $_SESSION["Nome"];} ?>" type="Name" class="form-control" name="Name" placeholder="inserisci qui il tuo nome"	required>
+							<input value= "<?php if(isset($_SESSION["Nome"])== true){echo $_SESSION["Nome"];} ?>" type="Name" class="form-control" name="Name" placeholder="Nome"	required>
+                        </div>
+                        <div id="Cognome">
+						<label >Cognome</label>
+							<input value= "<?php if(isset($_SESSION["Cognome"])== true){ echo $_SESSION["Cognome"]; }?>" type="Surname" class="form-control" name="Surname" placeholder="Cognome" required>
 						</div>
 						<div id="Sesso">
 							<label>Sesso</label><br>
@@ -58,15 +58,15 @@
 							<input type="radio" name="gender" value="other"> Altro
 						</div>
 						<div id="eMail">
-							<label>Indirizzo eMail</label>
-							<input value= "<?php if(isset($_SESSION["eMail"])== true){echo $_SESSION["eMail"];} ?>" name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
+							<label>Indirizzo email</label>
+							<input value= "<?php if(isset($_SESSION["eMail"])== true){echo $_SESSION["eMail"];} ?>" name="eMail" class="form-control" id="eMail" placeholder="Indirizzo email"	required>
 						</div>
 						<div id="Password">
 						<label >Password</label>
-						<input name = "Password" type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
+						<input name = "Password" type="password" class="form-control" id="Password"	placeholder="Password"	required>
 						</div>
 						<button type="submit" class="btn btn-primary" name="Conferma" >Conferma</button>
-						<button type ="reset" class="btn" name="Annulla" >Annulla</button>
+						<button class="btn" name="Annulla" onclick="history.back()">Annulla</button>
 				</form>
 			</div>
         </div>
