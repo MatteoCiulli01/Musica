@@ -11,17 +11,19 @@
 				</div>
 			<div id="modulo">
 				<form method="post" >
-                    <h2>Log In</h2>
+                    <h2>Log in</h2>
                     <div id="eMail">
-                        <label>Indirizzo eMail</label>
-                        <input name="eMail" class="form-control" id="eMail" placeholder="inserisci qui il tuo indirizzo eMail"	required>
+                        <label>Indirizzo email</label>
+                        <input name="eMail" class="form-control" id="eMail" placeholder="Indirizzo email"	required>
                     </div>
                     <div id="Password">
                         <label >Password</label>
-                        <input name = "Password" type="password" class="form-control" id="Password"	placeholder="inserisci qui la tua password"	required>
+                        <input name = "Password" type="password" class="form-control" id="Password"	placeholder="Password"	required>
                     </div>
                     <button type="submit" class="btn btn-primary" name="Conferma" >Log in</button>
-                    <button type ="reset" class="btn" name="Annulla" >Annulla</button>
+                    <button type ="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
+
+                    </br></br><div><p align="center">Non possiedi un account? <a href="SignUp.php"><b>Registrati</b></a></p></div>
                 </form>
                 <?php
                     if(array_key_exists("Conferma",$_POST))
