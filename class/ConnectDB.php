@@ -4,9 +4,9 @@
 class DBConnection
 {
 	private $_dbHostname = "localhost:3306";
-	private $_dbName = "ideeinbi_musica";
-	private $_dbUsername = "ideei_musica";
-	private $_dbPassword = "musica";
+	private $_dbName = "musica";
+	private $_dbUsername = "root";
+	private $_dbPassword = "Violacat2001";
 	private $_con;
 
 	public function __construct()
