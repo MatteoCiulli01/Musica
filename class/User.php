@@ -41,14 +41,17 @@
 		*/
 
 		//UserMatch
-		public function macth()
+		public function match()
 		{
 			try
 			{
 				$sql = 'SELECT id_credenziali FROM Credenziali WHERE username = :username AND password = :password';
 				$data = [
-					
-				]
+					'username' => $this->_username,
+					'password' => $this->_password
+				];
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute($data);
 			}
 		}
 
