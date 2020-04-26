@@ -1,5 +1,24 @@
 <!DOCTYPE html>                                 
 <html>
+    <script>
+        function matchCredenziali()
+        {
+            username = document.getElementById("Username").value;
+            password = document.getElementById("Password").value;
+            xhr = new XMLHttpRequest();
+            xhr.open("MATCH", 'http://localhost:80/api/apiUser.php', true);
+            xhr.onerror = function()
+            { 
+                alert('Errore');
+            };
+            xhr.send(
+                JSON.stringify({
+                    "username":username,
+                    "password":password
+                })
+            );
+        }
+    </script>
     <head>
         <link rel="stylesheet" type="text/css" href="./css/SignUp.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -12,9 +31,9 @@
 			<div id="modulo">
 				<form method="post" >
                     <h2>Log in</h2>
-                    <div id="eMail">
-                        <label>Indirizzo email</label>
-                        <input name="eMail" class="form-control" id="eMail" placeholder="Indirizzo email"	required>
+                    <div id="username">
+                        <label>Username</label>
+                        <input name="Username" class="form-control" id="username" placeholder="Username"	required>
                     </div>
                     <div id="Password">
                         <label >Password</label>
@@ -28,7 +47,7 @@
                 <?php
                     if(array_key_exists("Conferma",$_POST))
                     {
-                        $email = $_POST["eMail"];
+                        $username = $_POST["Usurname"];
                         $password = $_POST["Password"];
                     }
                 ?>
