@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-    include('ConnectDB.php');
+    include('../class/User.php');
     session_start();
     if (empty($_SESSION["ShowRisultato"]))
 	{
@@ -18,6 +18,25 @@
     {
     	$_SESSION["ShowRisultato"] = true;
     }
+
+    if(isset($_POST['Conferma']))
+    {
+        header("Location: LogIn.php");
+        confirm(); //tentativo di insert utente DA FIXARE
+    }
+
+    function confirm()
+    {
+        $user = new User();
+        $user->_username = $_POST["Username"];
+        $user->_sesso = $_POST["Sesso"];
+        $user->_email = $_POST["eMail"];
+        $user->_password = $_POST["Password"];
+
+        $user->_admin = 0;
+
+        $user->insert();
+    }
 ?>                                      
 <html>
     <head>
@@ -32,7 +51,7 @@
 					<a href="index.html"><img src="img/Musica.jpeg" style="width:50px; height:50px"></a>
 				</div>
 			<div id="modulo">
-				<form method="post" >
+				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
                         <div id="Username">
 						<label >Username</label>
@@ -63,7 +82,7 @@
                         
                         <div class="g-recaptcha" data-sitekey="6LfdnewUAAAAAOHpq6TWzzJ5Q5wzPsYCHubWXmj8"></div></br>
 
-						<button  type="submit" class="btn btn-primary" name="Conferma" >Conferma</button>
+						<button  type="submit" class="btn btn-primary" name="Conferma">Conferma</button>
 						<button  class="btn" name="Annulla" onclick="history.back()">Annulla</button>
 
                         </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
