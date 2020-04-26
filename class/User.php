@@ -41,7 +41,7 @@
 		*/
 
 		//UserMatch
-		public function macth()
+		public function match()
 		{
 			try
 			{
