@@ -81,6 +81,10 @@
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
 			}
+			catch (Exception $e)
+			{
+				echo "Oh noes! There's an error in the query! ".$e;
+			}
 		}
 
 		/* getAll 

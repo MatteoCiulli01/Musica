@@ -47,7 +47,7 @@
                 <?php
                     if(array_key_exists("Conferma",$_POST))
                     {
-                        $username = $_POST["Usurname"];
+                        $username = $_POST["Username"];
                         $password = $_POST["Password"];
                     }
                 ?>

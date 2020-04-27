@@ -1,6 +1,6 @@
 <?php //DA ADATTARE I METODI ALLE CLASSI DEL DATABASE
 	$requestMethod = $_SERVER["REQUEST_METHOD"];
-	include("../class/User.php");
+	include(__DIR__ . '/../class/User.php');
 	$user = new User();
 	switch($requestMethod)
 	{
@@ -32,13 +32,13 @@
 		case 'POST':
 			$new = json_decode(file_get_contents("php://input"),true);
 
-			if(strcmp($new['email'],"") != 0 && strcmp($stud['sesso'],"") != 0 && strcmp($stud['admin'],"") != 0 && strcmp($stud['username'],"") != 0 && strcmp($stud['password'],"") != 0) //controlla che tutti i valori siano stati passati
+			if(strcmp($new['email'],"") != 0 && strcmp($new['sesso'],"") != 0 && strcmp($new['admin'],"") != 0 && strcmp($new['username'],"") != 0 && strcmp($new['password'],"") != 0) //controlla che tutti i valori siano stati passati
 			{
 				$user->_email = $new['email'];
 				$user->_sesso = $new['sesso'];
 				$user->_admin = $new['admin'];
                 $user->_username = $new['username'];
-                $user->_password = $new['password'];
+				$user->_password = $new['password'];
 
 				$data = $user->insert();
 				$js_encode = json_encode(array($data), true);
@@ -48,7 +48,7 @@
 			}
 			else
 			{
-				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Input utente non valido'), true);
+				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Input utente non valido: roba' . $new['eMail']), true);
 				header('Content-Type: application/json');
 				echo $js_encode;
 			}

@@ -109,11 +109,10 @@ function setUtente()
     let xhr = new XMLHttpRequest();
     xhr.open("POST", 'api/apiUser.php', true); //DA CAPIRE QUALE URL UTILIZZARE
     //configuro la callback di risposta ok
-    /*xhr.onload = function()
+    xhr.onload = function()
     {
-        var obj = JSON.parse(xhr.response); //viene creato un array dal JSON ricevuto dopo aver modificato la risposta per creare l'array in modo corretto
-        //output(obj, "utente", "contentUtenti");
-    };*/
+        var obj = JSON.parse(xhr.response);
+    };
     //configuro la callback di errore
     xhr.onerror = function()
     { 
