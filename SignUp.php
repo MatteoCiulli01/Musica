@@ -23,20 +23,14 @@
 			<div id="modulo">
 				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
-                        <div id="Username">
 						<label >Username</label>
 						<input value= "<?php if(isset($_SESSION["Username"])== true){ echo $_SESSION["Username"]; }?>" name = "Username" type="text" class="form-control" id="Username"	placeholder="Username"	required>
-                        </div>
                         
-						<div id="eMail">
-							<label>Indirizzo email</label>
-							<input value= "<?php if(isset($_SESSION["eMail"])== true){ echo $_SESSION["eMail"]; }?>" name="eMail" type="text" class="form-control" id="eMail" placeholder="Indirizzo email"	required>
-                        </div>
+                        <label>Indirizzo email</label>
+                        <input value= "<?php if(isset($_SESSION["eMail"])== true){ echo $_SESSION["eMail"]; }?>" name="eMail" type="text" class="form-control" id="eMail" placeholder="Indirizzo email"	required>
 
-						<div id="Password">
 						<label >Password</label>
 						<input value= "" name = "Password" type="password" class="form-control" id="Password" placeholder="Password" required>
-                        </div>
 
                         <div id="Sesso" required>
 							<label>Sesso</label><br>
@@ -52,8 +46,8 @@
                         
                         <div class="g-recaptcha" data-sitekey="6LfdnewUAAAAAOHpq6TWzzJ5Q5wzPsYCHubWXmj8"></div></br>
 
-						<button class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
-						<button  class="btn" name="Annulla" onclick="history.back()">Annulla</button>
+						<button type="submit" class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
+						<button type="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
 
                         </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
 				</form>

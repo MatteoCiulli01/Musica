@@ -105,6 +105,20 @@ function getCanzoni()
 
 function setUtente()
 {
+    var genderRadios = document.getElementsByName("gender");
+    var Sex = null;
+    for (var i = 0, length = genderRadios.length; i < length; i++) //controlla tutti i radio button del sesso
+    {
+        if (genderRadios[i].checked)
+        {
+            Sex = genderRadios[i].value;
+            break;
+        }
+    }
+    //viene creato l'utente per mandare i parametri all'API
+    var user = {Username: document.getElementById("Username").value, eMail: document.getElementById("eMail").value, Password: document.getElementById("Password").value, Sesso: Sex, Admin: "0"};
+
+    console.log(user);
     //preparo la richiesta ajax
     let xhr = new XMLHttpRequest();
     xhr.open("POST", 'api/apiUser.php', true); //DA CAPIRE QUALE URL UTILIZZARE
@@ -118,6 +132,7 @@ function setUtente()
     { 
         alert('Errore');
     };
+
     //invio la richiesta ajax
-    xhr.send();
+    xhr.send(JSON.stringify(user));
 }
