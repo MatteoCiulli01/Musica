@@ -21,7 +21,7 @@
 		{
 			try
 			{
-				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (:username, :password)';
+				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (default, :username, :password)';
 				$data = [
 					'username' => $this->_username,
 					'password' => $this->_password
@@ -30,7 +30,7 @@
 				$stmt->execute($data);
 				$status += $stmt->rowCount();
 
-				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
+				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (default, :email, :sesso, :admin, :cod_credenziali)';
 				$data = [
 					'email' => $this->_email,
 					'sesso' => $this->_sesso,
@@ -44,12 +44,12 @@
 
 			} catch (Exception $e)
 			{
-				die("Oh noes! There's an error in the query! ".$e);
+				echo "Oh noes! There's an error in the query! ".$e;
 			}
 
 		}
 
-		public function getCredenziali($username)
+		/*public function getCredenziali($username)
 		{
 			try
 			{
@@ -66,7 +66,7 @@
 			{
 				die("Oh noes! There's an error in the query! ".$e);
 			}
-		}
+		}*/
 
 		//UserMatch
 		public function match()
