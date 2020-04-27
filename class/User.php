@@ -3,9 +3,11 @@
 	class User
 	{
 		protected $db;
-		public $_username;
-		public $_sesso;
 		public $_email;
+		public $_sesso;
+		public $_admin;
+
+		public $_username;
 		public $_password;
 
 		public function __construct()
@@ -13,19 +15,47 @@
 			$this->db = new DBConnection(); //crea la connessione da ConnectDB.php
 			$this->db = $this->db->returnConnection();
 		}
-		
-		/*
+
 		//insert
 		public function insert()
 		{
 			try
 			{
-				$sql = 'INSERT INTO student (name, surname, sidi_code, tax_code)  VALUES (:name, :surname, :sidi_code, :tax_code)';
+				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (default, :username, :password)';
 				$data = [
-					'name' => $this->_name,
-					'surname' => $this->_surname,
-					'sidi_code' => $this->_sidiCode,
-					'tax_code' => $this->_taxCode
+					'username' => $this->_username,
+					'password' => $this->_password
+				];
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+
+				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (default, :email, :sesso, :admin, :cod_credenziali)';
+				$data = [
+					'email' => $this->_email,
+					'sesso' => $this->_sesso,
+					'admin' => $this->_admin,
+					'cod_credenziali' => getCredenziali($this->_username)
+				];
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+				return $status;
+
+			} catch (Exception $e)
+			{
+				echo "Oh noes! There's an error in the query! ".$e;
+			}
+
+		}
+
+		/*public function getCredenziali($username)
+		{
+			try
+			{
+				$sql = 'SELECT id_credenziali FROM Credenziali WHERE username = :username';
+				$data = [
+					'username' => $this->_username
 				];
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
@@ -36,9 +66,7 @@
 			{
 				die("Oh noes! There's an error in the query! ".$e);
 			}
-
-		}
-		*/
+		}*/
 
 		//UserMatch
 		public function match()
