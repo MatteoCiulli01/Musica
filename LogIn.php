@@ -39,18 +39,12 @@
                         <label >Password</label>
                         <input name = "Password" type="password" class="form-control" id="Password"	placeholder="Password"	required>
                     </div>
-                    <button type="submit" class="btn btn-primary" name="Conferma" >Log in</button>
+                    <button type="submit" class="btn btn-primary" name="Conferma" onclick="matchCredenziali()" >Log in</button>
                     <button type ="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
 
                     </br></br><div><p align="center">Non possiedi un account? <a href="SignUp.php"><b>Registrati</b></a></p></div>
                 </form>
-                <?php
-                    if(array_key_exists("Conferma",$_POST))
-                    {
-                        $username = $_POST["Usurname"];
-                        $password = $_POST["Password"];
-                    }
-                ?>
+
 			</div>
     </body>
 </html>
