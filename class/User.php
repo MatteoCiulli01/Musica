@@ -16,40 +16,8 @@
 			$this->db = $this->db->returnConnection();
 		}
 
-		//insert
-		public function insert()
-		{
-			try
-			{
-				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (default, :username, :password)';
-				$data = [
-					'username' => $this->_username,
-					'password' => $this->_password
-				];
-				$stmt = $this->db->prepare($sql);
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-
-				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (default, :email, :sesso, :admin, :cod_credenziali)';
-				$data = [
-					'email' => $this->_email,
-					'sesso' => $this->_sesso,
-					'admin' => $this->_admin,
-					'cod_credenziali' => getCredenziali($this->_username)
-				];
-				$stmt = $this->db->prepare($sql);
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-				return $status;
-
-			} catch (Exception $e)
-			{
-				echo "Oh noes! There's an error in the query! ".$e;
-			}
-
-		}
-
-		/*public function getCredenziali($username)
+		//get delle credenziali con username
+		public function getCredenziali($username)
 		{
 			try
 			{
@@ -66,7 +34,46 @@
 			{
 				die("Oh noes! There's an error in the query! ".$e);
 			}
-		}*/
+		}
+
+		//insert
+		public function insert()
+		{
+			try
+			{
+				echo $this->_email;
+				echo $this->_sesso;
+				echo $this->_admin;
+				echo $this->getCredenziali($this->_username);
+				$cod_credenziali = $this->getCredenziali($this->_username);
+				
+				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (:username, :password)';
+				$data = [
+					'username' => $this->_username,
+					'password' => $this->_password
+				];
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute($data);
+				$status = $stmt->rowCount();
+
+				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
+				$data = [
+					'email' => $this->_email,
+					'sesso' => $this->_sesso,
+					'admin' => $this->_admin,
+					'cod_credenziali' => $cod_credenziali
+				];
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+				return $status;
+
+			} catch (Exception $e)
+			{
+				echo "Oh noes! There's an error in the query! ".$e;
+			}
+
+		}
 
 		//UserMatch
 		public function match()

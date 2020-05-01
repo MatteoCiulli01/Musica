@@ -53,15 +53,15 @@
                 break;
     
             case 'POST':
-				$new = json_decode(file_get_contents("php://input"),true);
+				$newuser = json_decode(file_get_contents("php://input"),true);
 
-                if(strcmp($new['eMail'],"") != 0 && strcmp($new['Sesso'],"") != 0 && strcmp($new['Admin'],"") != 0 && strcmp($new['Username'],"") != 0 && strcmp($new['Password'],"") != 0) //controlla che tutti i valori siano stati passati
+                if(strcmp($_POST['eMail'],"") != 0 && strcmp($_POST['gender'],"") != 0 && strcmp($_POST['Username'],"") != 0 && strcmp($_POST['Password'],"") != 0) //controlla che tutti i valori siano stati passati
                 {
-                    $user->_email = $new['eMail'];
-                    $user->_sesso = $new['Sesso'];
-                    $user->_admin = $new['Admin'];
-                    $user->_username = $new['Username'];
-					$user->_password = $new['Password'];
+                    $user->_email = $_POST['eMail'];
+                    $user->_sesso = $_POST['gender'];
+                    $user->_admin = 0;
+                    $user->_username = $_POST['Username'];
+					$user->_password = $_POST['Password'];
     
                     $data = $user->insert();
                     $js_encode = json_encode(array($data), true);

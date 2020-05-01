@@ -21,7 +21,7 @@
 					<a href="index.html"><img src="img/Musica.jpeg" style="width:50px; height:50px"></a>
 				</div>
 			<div id="modulo">
-				<form id="signup" method="post">
+				<form id="signup" method="post" action="api/apiUser.php">
                         <h2>Modulo di iscrizione</h2>
 						<label >Username</label>
 						<input value= "<?php if(isset($_SESSION["Username"])== true){ echo $_SESSION["Username"]; }?>" name = "Username" type="text" class="form-control" id="Username"	placeholder="Username"	required>
