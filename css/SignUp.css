@@ -26,8 +26,21 @@ input
 {
 	margin-bottom: 20px;
 }
+
+#login
+{
+	margin-left:40%;
+}
+
+#status
+{
+	color:red;
+	text-align:center;
+}
+
 .page-header 
 {
 	width: 100%;
 	background-color: #222a32;
+	padding-left:20px;
 }

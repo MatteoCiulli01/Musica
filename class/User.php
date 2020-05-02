@@ -41,12 +41,6 @@
 		{
 			try
 			{
-				echo $this->_email;
-				echo $this->_sesso;
-				echo $this->_admin;
-				echo $this->getCredenziali($this->_username);
-				$cod_credenziali = $this->getCredenziali($this->_username);
-				
 				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (:username, :password)';
 				$data = [
 					'username' => $this->_username,
@@ -55,6 +49,8 @@
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
 				$status = $stmt->rowCount();
+
+				$cod_credenziali = $this->getCredenziali($this->_username);
 
 				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
 				$data = [
@@ -87,6 +83,8 @@
 				];
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
+				$status = $stmt->rowCount();
+				return $status;
 			}
 			catch (Exception $e)
 			{

@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<?php
-    include("api/apiUser.php");
-    session_start();
-
-    /*if(isset($_POST['Conferma']))
-    {
-        header("Location: LogIn.php");
-    }*/
-?>                            
+<!DOCTYPE html>                  
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="./css/SignUp.css">
+        <link rel="stylesheet" type="text/css" href="css/SignUp.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="./script/script.js"></script>
         <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -21,16 +12,16 @@
 					<a href="index.html"><img src="img/Musica.jpeg" style="width:50px; height:50px"></a>
 				</div>
 			<div id="modulo">
-				<form id="signup" method="post" action="api/apiUser.php">
+				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
 						<label >Username</label>
-						<input value= "<?php if(isset($_SESSION["Username"])== true){ echo $_SESSION["Username"]; }?>" name = "Username" type="text" class="form-control" id="Username"	placeholder="Username"	required>
+						<input id="Username" value= "<?php if(isset($_SESSION["Username"])== true){ echo $_SESSION["Username"]; }?>" name = "Username" type="text" class="form-control"	placeholder="Username"	required>
                         
                         <label>Indirizzo email</label>
-                        <input value= "<?php if(isset($_SESSION["eMail"])== true){ echo $_SESSION["eMail"]; }?>" name="eMail" type="text" class="form-control" id="eMail" placeholder="Indirizzo email"	required>
+                        <input id="eMail" value= "<?php if(isset($_SESSION["eMail"])== true){ echo $_SESSION["eMail"]; }?>" name="eMail" type="text" class="form-control" placeholder="Indirizzo email"	required>
 
 						<label >Password</label>
-						<input value= "" name = "Password" type="password" class="form-control" id="Password" placeholder="Password" required>
+						<input id="Password" value= "" name = "Password" type="password" class="form-control" placeholder="Password" required>
 
                         <div id="Sesso" required>
 							<label>Sesso</label><br>
@@ -40,8 +31,8 @@
                         </div>
                         
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                            <label class="form-check-label" for="exampleCheck1"><small>Accetto <a href="index.html"><b>Termini e condizioni</b></a> e <a href="index.html"><b>Informativa sulla privacy Musica</b></a>.</small></label>
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms"><small>Accetto <a href="index.html"><b>Termini e condizioni</b></a> e <a href="index.html"><b>Informativa sulla privacy Musica</b></a>.</small></label>
                         </div></br>
                         
                         <div class="g-recaptcha" data-sitekey="6LfdnewUAAAAAOHpq6TWzzJ5Q5wzPsYCHubWXmj8"></div></br>
@@ -55,3 +46,13 @@
         </div>
     </body>
 </html>
+
+<?php
+    include("api/apiUser.php");
+    session_start();
+
+    if(isset($_POST['Conferma']))
+    {
+        header("Location: LogIn.php");
+    }
+?> 
