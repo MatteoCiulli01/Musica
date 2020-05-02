@@ -13,6 +13,7 @@ html,
 body {
     height: 100%;
     min-height: 100%;
+    background-color:#121212;
 }
 body { margin: 0; }
 a { background-color: transparent; }
@@ -48,8 +49,8 @@ img {
 }
 .page-content-wrapper { height: 100%; }
 .page-header {
-    padding: 0 10px;
-    min-height: 50px;
+ 
+    height: 50px;
     border-bottom: 1px solid #1c2229;
     background: #222a32;
 }
@@ -199,7 +200,7 @@ img {
         right: 0;
         left: 0;
         width: 100%;
-        min-height: 51px;
+        height: 51px;
     }
     .page-header,
     .page-content,
@@ -310,4 +311,86 @@ iframe { border: 1px solid #bebebe; }
     white-space: nowrap;
     font-weight: 700;
     background: #fafafa;
+}
+
+.canzone, .artista
+{
+    width:50%;
+    border-top:solid white 1px;
+    border-bottom:solid white 1px;
+    white-space: nowrap;
+    
+}
+
+.canzone > div, .artista > div
+{
+    display: inline-block;
+    padding:5px;
+    font-size:16px;
+    
+}
+
+.canzonetitolo
+{
+    font-weight:bold;
+    font-size:20px !important;
+}
+
+.canzoneanno:before
+{
+    content:"-\00a0";
+}
+
+.canzoneaudio
+{
+    word-break:break-all;
+    white-space: pre-wrap;
+}
+
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.User 
+{
+    position: relative;
+    display: inline-block;
+    left: 92%;
+    float: left;
+}
+
+.show 
+{
+    display: block;
+}
+
+.dropbtn
+{
+    width: 30px;
+    height: 40px;
+    margin-top: 5px;
+}
+
+.dropdown-content a 
+{
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.TitleIcon
+{
+    width: 50px;
+    height: 50px;
+    right: 20px;
 }

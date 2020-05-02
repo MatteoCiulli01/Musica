@@ -18,10 +18,15 @@
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
-				<div class="page-header" style="background-color: #222a32;">
-					<img src="img/Musica.jpeg" style="width:50px; height:50px">
-					<a href="SignUp.php">Sign Up</a>
-					<a href="LogIn.php">Log In</a>
+				<div class="page-header" >
+					<img src="img/Musica.jpeg" class="TitleIcon">
+					<div class="User">
+						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
+						<div id="Dropdown" class="dropdown-content">
+							<a href="SignUp.php">Sign Up</a>
+							<a href="LogIn.php">Log In</a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- end: PAGE HEADER-->
@@ -47,39 +52,25 @@
 			<!-- end: PAGE FOOTER-->
 		</div>
 	</body>
-	<style>
-		.canzone, .artista
-		{
-			width:50%;
-			border-top:solid white 1px;
-			border-bottom:solid white 1px;
-			white-space: nowrap;
-			
+
+	<script>
+		/* Quando si clicca sul bottone si apre il dropdown */
+		function DropdownFunction() {
+		  document.getElementById("Dropdown").classList.toggle("show");
 		}
 		
-		.canzone > div, .artista > div
-		{
-			display: inline-block;
-			padding:5px;
-			font-size:16px;
-			
+		// Chiude il dropdown se si clicca fuori da esso
+		window.onclick = function(event) {
+		  if (!event.target.matches('.dropbtn')) {
+			var dropdowns = document.getElementsByClassName("dropdown-content");
+			var i;
+			for (i = 0; i < dropdowns.length; i++) {
+			  var openDropdown = dropdowns[i];
+			  if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			  }
+			}
+		  }
 		}
-		
-		.canzonetitolo
-		{
-			font-weight:bold;
-			font-size:20px !important;
-		}
-		
-		.canzoneanno:before
-		{
-			content:"-\00a0";
-		}
-		
-		.canzoneaudio
-		{
-			word-break:break-all;
-			white-space: pre-wrap;
-		}
-	</style>
+	</script>
 </html>
