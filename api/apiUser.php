@@ -5,9 +5,9 @@
         $user = new User();
         switch($requestMethod)
         {
-            /*
+
             case 'GET':
-                $id = '';
+                /*$id = '';
                 if(isset($_GET['id']))
                 {
                     $id = $_GET['id'];
@@ -27,34 +27,10 @@
                     $js_encode = json_encode(array('status'=>FALSE, 'message'=>'There is no record yet.'), true);
                 }
                 header('Content-Type: application/json');
-                echo $js_encode;
-                break;*/
-
-            case 'MATCH':
-                $User = json_decode(file_get_contents("php://input"),true);
-        
-                if(strcmp($User['username'],"") != 0 && strcmp($User['password'],"") != 0) //controlla che tutti i valori siano stati passati
-                {
-                    $user->_username = $User['username'];
-                    $user->_password = $User['password'];
-        
-                    $data = $student->insert();
-                    $js_encode = json_encode(array($data), true);
-        
-                    header('Content-Type: application/json');
-                    echo $js_encode;
-                }
-                else
-                {
-                    $js_encode = json_encode(array('status'=>FALSE, 'message'=>'Input studente non valido'), true);
-                    header('Content-Type: application/json');
-                    echo $js_encode;
-                }
+                echo $js_encode;*/
                 break;
-    
+                
             case 'POST':
-				$newuser = json_decode(file_get_contents("php://input"),true);
-
                 if(strcmp($_POST['eMail'],"") != 0 && strcmp($_POST['gender'],"") != 0 && strcmp($_POST['Username'],"") != 0 && strcmp($_POST['Password'],"") != 0) //controlla che tutti i valori siano stati passati
                 {
                     $user->_email = $_POST['eMail'];
@@ -77,6 +53,31 @@
                 }
                 break;
     
+            case 'MATCH':
+                $userToMatch = json_decode(file_get_contents("php://input"),true);
+
+                if(strcmp($userToMatch['Username'],"") != 0 && strcmp($userToMatch['Password'],"") != 0) //controlla che tutti i valori siano stati passati
+                {
+                    $user->_username = $userToMatch['Username'];
+                    $user->_password = $userToMatch['Password'];
+        
+                    $data = $user->match();
+                    if($data == 0)
+                    {
+                        echo "Nome utente o password errati o account inesistente";
+                    }
+                    else
+                    {
+                        $js_encode = json_encode($data, true);
+                        header('Content-Type: application/json');
+                        echo $js_encode;
+                    }
+                }
+                else
+                {
+                    echo "Nome utente o password errati o account inesistente";
+                }
+                break;
             /* DA IMPLEMENTARE
             case 'DELETE':
                 $id = $_GET['id'];
@@ -158,7 +159,7 @@
                 */
     
             default:
-                header("HTTP/1.0 405 Method Not Allowed");
+                header("HTTP/1.0 405 Method Not Allowed in apiUser.php");
                 break;
         }
     ?>

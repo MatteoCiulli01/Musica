@@ -70,7 +70,7 @@ function getArtisti()
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
-        var obj = JSON.parse(xhr.response); //viene creato un array dal JSON ricevuto dopo aver modificato la risposta per creare l'array in modo corretto
+        var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
         output(obj, "artista", "contentArtisti");
         
     };
@@ -91,8 +91,8 @@ function getCanzoni()
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
-        var obj = JSON.parse(xhr.response); //viene creato un array dal JSON ricevuto dopo aver modificato la risposta per creare l'array in modo corretto
-        output(obj, "canzone", "contentCanzoni");
+        var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+        output(obj, "canzone", "contentCanzoni"); //output dell'oggetto canzone
     };
     //configuro la callback di errore
     xhr.onerror = function()
@@ -118,14 +118,20 @@ function setUtente()
     //viene creato l'utente per mandare i parametri all'API
     var user = {Username: document.getElementById("Username").value, eMail: document.getElementById("eMail").value, Password: document.getElementById("Password").value, Sesso: Sex, Admin: "0"};
 
-    console.log(user);
     //preparo la richiesta ajax
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", 'api/apiUser.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+    xhr.open("POST", 'api/apiUser.php', true);
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
-        var obj = JSON.parse(xhr.response);
+        if(xhr.status==200)
+        {
+            var obj = xhr.response; //da visualizzare nel caso di debug
+        }
+        else
+        {
+            alert("Errore " + xhr.status);
+        }
     };
     //configuro la callback di errore
     xhr.onerror = function()
@@ -135,4 +141,42 @@ function setUtente()
 
     //invio la richiesta ajax
     xhr.send(JSON.stringify(user));
+}
+
+function matchCredenziali() //controllo della presenza dell'utente con il login
+{
+    var username = document.getElementById("Username").value;
+    var password = document.getElementById("Password").value;
+
+    //viene creato l'utente per mandare i parametri all'API
+    var user = {Username: username, Password: password};
+
+    xhr = new XMLHttpRequest();
+    xhr.open("MATCH", 'api/apiUser.php', true);
+
+    xhr.onload = function()
+    {
+        if(xhr.status==200)
+        {
+            if(parseFloat(xhr.response) > 0) //se la risposta è un numero maggiore di 0 (è stato trovato un utente)
+            {
+                page("/index.html");
+            }
+            else
+            {
+                document.getElementById("status").innerHTML=xhr.response;
+            }
+        }
+    };
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+
+    xhr.send(JSON.stringify(user));
+}
+
+function page(page) //metodo ulteriore per cambiare pagina
+{
+    document.location.href = page;
 }
