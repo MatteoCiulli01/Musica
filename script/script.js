@@ -126,11 +126,14 @@ function setUtente()
     {
         if(xhr.status==200)
         {
-            var obj = xhr.response; //da visualizzare nel caso di debug
-        }
-        else
-        {
-            alert("Errore " + xhr.status);
+            if(isNaN(parseFloat(xhr.response))) //se la risposta non è un numero (l'account è già esistente o non sono stati inseriti tutti i dati)
+            {
+                document.getElementById("status").innerHTML = xhr.response;
+            }
+            else
+            {
+                page("/LogIn.php");
+            }
         }
     };
     //configuro la callback di errore
@@ -176,7 +179,7 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
     xhr.send(JSON.stringify(user));
 }
 
-function page(page) //metodo ulteriore per cambiare pagina
+function page(page) //metodo semplificato per cambiare pagina
 {
     document.location.href = page;
 }

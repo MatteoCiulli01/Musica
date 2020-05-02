@@ -31,25 +31,26 @@
                 break;
                 
             case 'POST':
-                if(strcmp($_POST['eMail'],"") != 0 && strcmp($_POST['gender'],"") != 0 && strcmp($_POST['Username'],"") != 0 && strcmp($_POST['Password'],"") != 0) //controlla che tutti i valori siano stati passati
+                $newUser = json_decode(file_get_contents("php://input"),true);
+
+                if(strcmp($newUser['eMail'],"") != 0 && strcmp($newUser['Sesso'],"") != 0 && strcmp($newUser['Username'],"") != 0 && strcmp($newUser['Password'],"") != 0) //controlla che tutti i valori siano stati passati
                 {
-                    $user->_email = $_POST['eMail'];
-                    $user->_sesso = $_POST['gender'];
+                    $user->_email = $newUser['eMail'];
+                    $user->_sesso = $newUser['Sesso'];
                     $user->_admin = 0;
-                    $user->_username = $_POST['Username'];
-					$user->_password = $_POST['Password'];
+                    $user->_username = $newUser['Username'];
+					$user->_password = $newUser['Password'];
     
                     $data = $user->insert();
-                    $js_encode = json_encode(array($data), true);
-    
-                    header('Content-Type: application/json');
-                    echo $js_encode;
+
+                    if(is_numeric($data)) //solo se il messaggio è un valore numerico
+                    {
+                        echo $data;
+                    }
                 }
                 else
                 {
-                    $js_encode = json_encode(array('status'=>FALSE, 'message'=>'Input utente non valido'), true);
-                    header('Content-Type: application/json');
-                    echo $js_encode;
+                    echo "Inserisci tutti i dati";
                 }
                 break;
     

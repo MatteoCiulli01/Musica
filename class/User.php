@@ -36,33 +36,60 @@
 			}
 		}
 
+		//check dell'esistenza di una mail (0 se inesistente e output della email se esistente)
+		public function checkEmail($email)
+		{
+			try
+			{
+				$sql = 'SELECT email FROM Utenti WHERE email = :email';
+				$data = [
+					'email' => $email
+				];
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute($data);
+				$status = $stmt->rowCount();
+				return $status;
+
+			} catch (Exception $e)
+			{
+				die("Oh noes! There's an error in the query! ".$e);
+			}
+		}
+
 		//insert
 		public function insert()
 		{
 			try
 			{
-				$sql = 'INSERT INTO Credenziali (username, password)  VALUES (:username, :password)';
-				$data = [
-					'username' => $this->_username,
-					'password' => $this->_password
-				];
-				$stmt = $this->db->prepare($sql);
-				$stmt->execute($data);
-				$status = $stmt->rowCount();
+				if($this->getCredenziali($this->_username)==0 && $this->checkEmail($this->_email)==0) //se non esiste un utente con lo stesso username o con la stessa email
+				{
+					$sql = 'INSERT INTO Credenziali (username, password)  VALUES (:username, :password)';
+					$data = [
+						'username' => $this->_username,
+						'password' => $this->_password
+					];
+					$stmt = $this->db->prepare($sql);
+					$stmt->execute($data);
+					$status = $stmt->rowCount();
 
-				$cod_credenziali = $this->getCredenziali($this->_username);
+					$cod_credenziali = $this->getCredenziali($this->_username);
 
-				$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
-				$data = [
-					'email' => $this->_email,
-					'sesso' => $this->_sesso,
-					'admin' => $this->_admin,
-					'cod_credenziali' => $cod_credenziali
-				];
-				$stmt = $this->db->prepare($sql);
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-				return $status;
+					$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
+					$data = [
+						'email' => $this->_email,
+						'sesso' => $this->_sesso,
+						'admin' => $this->_admin,
+						'cod_credenziali' => $cod_credenziali
+					];
+					$stmt = $this->db->prepare($sql);
+					$stmt->execute($data);
+					$status = $stmt->rowCount();
+					return $status;
+				}
+				else
+				{
+					echo "Account già esistente";
+				}
 
 			} catch (Exception $e)
 			{

@@ -36,13 +36,15 @@
                         </div></br>
                         
                         <div class="g-recaptcha" data-sitekey="6LfdnewUAAAAAOHpq6TWzzJ5Q5wzPsYCHubWXmj8"></div></br>
+                </form>
+                <button type="submit" class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
+                <button type="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
 
-						<button type="submit" class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
-						<button type="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
-
-                        </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
-				</form>
-			</div>
+                </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
+            </div>
+            <div id="status">
+                <!--dove verranno visualizzate le risposte delle richieste xhr-->
+            </div>
         </div>
     </body>
 </html>
@@ -50,9 +52,4 @@
 <?php
     include("api/apiUser.php");
     session_start();
-
-    if(isset($_POST['Conferma']))
-    {
-        header("Location: LogIn.php");
-    }
 ?> 
