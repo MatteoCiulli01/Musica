@@ -39,7 +39,7 @@
                     $user->_sesso = $newUser['Sesso'];
                     $user->_admin = 0;
                     $user->_username = $newUser['Username'];
-					$user->_password = $newUser['Password'];
+					$user->_password = md5($newUser['Password']);
     
                     $data = $user->insert();
 
@@ -60,8 +60,7 @@
                 if(strcmp($userToMatch['Username'],"") != 0 && strcmp($userToMatch['Password'],"") != 0) //controlla che tutti i valori siano stati passati
                 {
                     $user->_username = $userToMatch['Username'];
-                    $user->_password = $userToMatch['Password'];
-        
+                    $user->_password = md5($userToMatch['Password']);
                     $data = $user->match();
                     if($data == 0)
                     {

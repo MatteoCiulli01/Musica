@@ -26,9 +26,8 @@
 					'username' => $this->_username
 				];
 				$stmt = $this->db->prepare($sql);
-				$stmt->execute($data);
-				$status = $stmt->rowCount();
-				return $status;
+				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+				return $result;
 
 			} catch (Exception $e)
 			{
@@ -47,8 +46,8 @@
 				];
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
-				$status = $stmt->rowCount();
-				return $status;
+				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+				return $result;
 
 			} catch (Exception $e)
 			{
@@ -103,15 +102,15 @@
 		{
 			try
 			{
-				$sql = 'SELECT id_credenziali FROM Credenziali WHERE username = :username AND password = :password';
+				$sql = "SELECT admin FROM Utenti U INNER JOIN Credenziali C ON C.id_credenziali = U.cod_credenziali WHERE C.username = :username AND C.password = :password";
 				$data = [
 					'username' => $this->_username,
 					'password' => $this->_password
 				];
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
-				$status = $stmt->rowCount();
-				return $status;
+				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+				return $result;
 			}
 			catch (Exception $e)
 			{

@@ -179,11 +179,19 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
     {
         if(xhr.status==200)
         {
-            if(parseFloat(xhr.response) > 0) //se la risposta è un numero maggiore di 0 (è stato trovato un utente)
+            try
             {
-                page("./index.html");
+                var login = JSON.parse(xhr.response);
+                if(login.admin==1) //se l'admin ha effettuato il login
+                {
+                    page("./indexAdmin.html");
+                }
+                else //per gli utenti normali
+                {
+                    page("./index.html");
+                }
             }
-            else
+            catch(e) //nel caso non sia trovato un utente
             {
                 document.getElementById("status").innerHTML=xhr.response;
             }

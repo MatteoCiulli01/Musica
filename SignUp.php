@@ -9,7 +9,7 @@
     <body style="background-color:#121212; ">
         <div id="allbox">
 				<div class="page-header">
-					<a href="index.html"><img src="img/Musica.jpeg" style="width:50px; height:50px"></a>
+					<a href="index.html"><img src="img/Musica.jpeg" class="TitleIcon"></a>
 				</div>
 			<div id="modulo">
 				<form id="signup" method="post">
