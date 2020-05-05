@@ -201,6 +201,7 @@ function page(page) //metodo semplificato per cambiare pagina
 {
     document.location.href = page;
 }
+
 var seconds = 5;    
 function countdown() { //countdown reindirizzamento pagina
     seconds = seconds - 1;
