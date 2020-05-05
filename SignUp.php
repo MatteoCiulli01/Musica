@@ -15,10 +15,10 @@
 				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
 						<label >Username</label>
-						<input id="Username" value= "<?php if(isset($_SESSION["Username"])== true){ echo $_SESSION["Username"]; }?>" name = "Username" type="text" class="form-control"	placeholder="Username"	required>
+						<input id="Username" name ="Username" type="text" class="form-control"	placeholder="Username"	required>
                         
                         <label>Indirizzo email</label>
-                        <input id="eMail" value= "<?php if(isset($_SESSION["eMail"])== true){ echo $_SESSION["eMail"]; }?>" name="eMail" type="text" class="form-control" placeholder="Indirizzo email"	required>
+                        <input id="eMail" name="eMail" type="text" class="form-control" placeholder="Indirizzo email"	required>
 
 						<label >Password</label>
 						<input id="Password" value= "" name = "Password" type="password" class="form-control" placeholder="Password" required>
@@ -41,6 +41,16 @@
                 <button type="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
 
                 </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
+            </div>
+            <div id ="attEmail" style="display:none">
+                <p>Registrazione eseguita, controlla la tua casella mail e inserirsci il codice di conferma:</p>
+                <input type="text" id="confCod" maxlength="6" size="6"></input>
+                <button type="button" name="conf" id="conf">Conferma</button>
+            </div>
+            <div id="check" style="display:none"> <!-- div che verrà mostrato a video solo dopo la registrazione per un certo periodo di tempo, serve per far capire all'utente che l'account è stato creato con successo-->
+                <p><h1>L'account è stato registrato correttamente con l'username</h1></p>
+                <p id="us"></p><p>Verrai reindirizzato a una pagina di login tra :</p>
+                <p id="countdown"></p>
             </div>
             <div id="status">
                 <!--dove verranno visualizzate le risposte delle richieste xhr-->

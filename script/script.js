@@ -140,7 +140,17 @@ function setUtente()
             }
             else
             {
-                page("/LogIn.php");
+                document.getElementById("modulo").style.display = "none"; //nasconde il div di signup
+                document.getElementById("attEmail").style.display = "block"; //mostra il div di conferma
+                
+                document.getElementById('conf').onclick = function()
+                {
+                    document.getElementById("attEmail").style.display = "none"; 
+                    document.getElementById("check").style.display = "block"; 
+                    document.getElementById("us").innerHTML = document.getElementById("Username").value; //assegna al p us il valore dell'username inserito in modo di mostrarlo a video nel div check
+                    countdown();//avvia la funzione countdown che dopo tot secondi reindizzerà alla pagina login
+                };
+            
             }
         }
     };
@@ -171,7 +181,7 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
         {
             if(parseFloat(xhr.response) > 0) //se la risposta è un numero maggiore di 0 (è stato trovato un utente)
             {
-                page("/index.html");
+                page("./index.html");
             }
             else
             {
@@ -190,4 +200,14 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
 function page(page) //metodo semplificato per cambiare pagina
 {
     document.location.href = page;
+}
+var seconds = 5;    
+function countdown() { //countdown reindirizzamento pagina
+    seconds = seconds - 1;
+    if (seconds < 0) {
+        page("./LogIn.php");
+    } else {
+        document.getElementById("countdown").innerHTML = seconds;
+        window.setTimeout("countdown()", 1000);
+    }
 }

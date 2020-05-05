@@ -22,6 +22,31 @@ input
 	padding: 20px;
 	border-radius: 10px;
 }
+#check
+{
+	width: 1000px;
+	margin: auto;
+	margin-top: 20px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+#attEmail
+{
+	width: 1000px;
+	margin: auto;
+	margin-top: 20px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+#us
+{
+	color: green;
+	font-size: 20px;
+}
 #Cognome,#Nome,#Sesso,#eMail,#Password
 {
 	margin-bottom: 20px;
