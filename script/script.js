@@ -46,6 +46,14 @@ function output(array, classname, div)
                 obj.appendChild(divObj);
                 obj.appendChild(br);
             }
+            else if(property==6 && classname=="canzone")
+            {
+                var divObj = document.createElement("img");
+                divObj.className="canzonealbumcover";
+                var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
+                divObj.setAttribute("src",urlalbumcover);
+                obj.appendChild(divObj);
+            }
             else
             {
                 var divObj	= document.createElement("div");

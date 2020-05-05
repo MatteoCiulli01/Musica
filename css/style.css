@@ -394,3 +394,10 @@ iframe { border: 1px solid #bebebe; }
     height: 50px;
     right: 20px;
 }
+
+.canzonealbumcover
+{
+    width: 150px;
+    height: 150px;
+    margin:25px;
+}
