@@ -23,10 +23,8 @@
 				<div class="page-header" >
 					<a href=""><img src="img/Musica.jpeg" class="TitleIcon"></a>
 					<div class="User">
-						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
+						<input onclick="DropdownFunction()" class="dropbtn adminLogo" type="image" src="img/admin.png"></input>
 						<div id="Dropdown" class="dropdown-content">
-							<a href="SignUp.php">Sign Up</a>
-							<a href="LogIn.php">Log In</a>
 							<a href="indexAdmin.php?logout=true">Log Out</a>
 						</div>
 						<?php

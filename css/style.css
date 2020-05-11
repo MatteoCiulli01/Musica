@@ -409,3 +409,9 @@ iframe { border: 1px solid #bebebe; }
     font-size:25px;
     margin-left:10px;
 }
+
+.adminLogo
+{
+    width:40px;
+    height:40px;
+}
