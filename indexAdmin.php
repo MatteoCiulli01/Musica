@@ -13,21 +13,40 @@
 		
 		<script src="./script/script.js"></script>
 		<script src="./script/indexScript.js"></script>
+
+		<?php session_start();?>
 	</head>
 	<body onload="getArtisti();" class="text-light" style="background-color:#121212; ">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
-					<a href="indexAdmin.html"><img src="img/Musica.jpeg" class="TitleIcon"></a>
+					<a href=""><img src="img/Musica.jpeg" class="TitleIcon"></a>
 					<div class="User">
 						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
 						<div id="Dropdown" class="dropdown-content">
 							<a href="SignUp.php">Sign Up</a>
 							<a href="LogIn.php">Log In</a>
+							<a href="indexAdmin.php?logout=true">Log Out</a>
 						</div>
-					</div>
+						<?php
+							if(isset($_SESSION["user"]) && $_SESSION["user"]=="admin") //nel caso l'utente abbia effettuato il login
+							{
+								echo '<div class="usernameDisplay">' . $_SESSION["user"] . '</div>';
+							}
+							else//nel caso l'utente non sia loggato come admin
+							{
+								header("Location: ./index.html");
+								session_destroy();
+							}
 
+							if(isset($_GET["logout"])) //alla pressione del bottone di logout
+							{
+								session_destroy();
+								header("Location: ./index.html");
+							}
+						?>
+					</div>
 				</div>
 			</div>
 			<!-- end: PAGE HEADER-->
@@ -53,25 +72,4 @@
 			<!-- end: PAGE FOOTER-->
 		</div>
 	</body>
-
-	<script>
-		/* Quando si clicca sul bottone si apre il dropdown */
-		function DropdownFunction() {
-		  document.getElementById("Dropdown").classList.toggle("show");
-		}
-		
-		// Chiude il dropdown se si clicca fuori da esso
-		window.onclick = function(event) {
-		  if (!event.target.matches('.dropbtn')) {
-			var dropdowns = document.getElementsByClassName("dropdown-content");
-			var i;
-			for (i = 0; i < dropdowns.length; i++) {
-			  var openDropdown = dropdowns[i];
-			  if (openDropdown.classList.contains('show')) {
-				openDropdown.classList.remove('show');
-			  }
-			}
-		  }
-		}
-	</script>
 </html>

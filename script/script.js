@@ -16,11 +16,66 @@ function output(array, classname, div)
         
         for(var property in Object.values(array[element])) //ciclo per ogni proprietà dell'oggetto
         {
-            var key; //nome della proprietà
-            var proprieta; //valore della proprietà
+            var key = Object.keys(array[element])[property]; //nome della proprietà
+            var proprieta = Object.values(array[element])[property]; //valore della proprietà
+
+            if(classname=="canzone")
+            {
+                switch(key)
+                {
+                    case "url_canzone":
+                        var br = document.createElement("br");
+                        var divObj = document.createElement("audio");
+                        divObj.classname="canzoneaudio";
+                        divObj.setAttribute("controls",true);
+                        var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
+                        divObj.innerHTML ='<source src="'+urlcanzone+'" />';
+                        obj.appendChild(br);
+                        obj.appendChild(divObj);
+                        //var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
+                        //document.getElementById(div).innerHTML+='<audio controls><source src="'+urlcanzone+'" /></audio>';
+                        //non inserisce l'url delle canzoni
+                        break;
+                    
+                    case "titolo":
+                        var br = document.createElement("br");
+                        var divObj	= document.createElement("div");
+                        var text = document.createTextNode(proprieta);
+                        divObj.appendChild(text);
+                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                        obj.appendChild(divObj);
+                        obj.appendChild(br);
+                        break;
+
+                    case "url_cover":
+                        var divObj = document.createElement("img");
+                        divObj.className="canzonealbumcover";
+                        var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
+                        divObj.setAttribute("src",urlalbumcover);
+                        obj.appendChild(divObj);
+                        break;
+
+                    default:
+                        var divObj	= document.createElement("div");
+                        var text = document.createTextNode(proprieta);
+                        divObj.appendChild(text);
+                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                        obj.appendChild(divObj);
+                        break;
+                }
+            }
+            else
+            {
+                var divObj	= document.createElement("div");
+                var text = document.createTextNode(proprieta);
+                divObj.appendChild(text);
+                divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                obj.appendChild(divObj);
+            }
             
+            /*
             //generazione delle proprietà dell'oggetto in HTML
-            if(property == 5 && classname=="canzone") //output dell'url canzone
+            if(key == "url_canzone" && classname=="canzone") //output dell'url canzone
             {
                 var br = document.createElement("br");
                 var divObj = document.createElement("audio");
@@ -34,19 +89,17 @@ function output(array, classname, div)
                 //document.getElementById(div).innerHTML+='<audio controls><source src="'+urlcanzone+'" /></audio>';
                 //non inserisce l'url delle canzoni
             }
-            else if(property == 0 && classname=="canzone") //output del titolo della canzone
+            else if(key == "titolo" && classname=="canzone") //output del titolo della canzone
             {
                 var br = document.createElement("br");
                 var divObj	= document.createElement("div");
-                proprieta = Object.values(array[element])[property];
-                key = Object.keys(array[element])[property];
                 var text = document.createTextNode(proprieta);
                 divObj.appendChild(text);
                 divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
                 obj.appendChild(divObj);
                 obj.appendChild(br);
             }
-            else if(property==6 && classname=="canzone")
+            else if(key=="url_cover" && classname=="canzone") //output della cover dell'album della canzone
             {
                 var divObj = document.createElement("img");
                 divObj.className="canzonealbumcover";
@@ -57,13 +110,11 @@ function output(array, classname, div)
             else
             {
                 var divObj	= document.createElement("div");
-                proprieta = Object.values(array[element])[property];
-                key = Object.keys(array[element])[property];
                 var text = document.createTextNode(proprieta);
                 divObj.appendChild(text);
                 divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
                 obj.appendChild(divObj);
-            }
+            }*/
             document.getElementById(div).appendChild(obj);
         }
         i++;
@@ -96,6 +147,26 @@ function getCanzoni()
     //preparo la richiesta ajax
     let xhr = new XMLHttpRequest();
     xhr.open("GET", 'api/apiSong.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+        output(obj, "canzone", "contentCanzoni"); //output dell'oggetto canzone
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
+function getCanzoniLite() //output delle canzoni per gli utenti non loggati
+{
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETNOTLOGGED", 'api/apiSong.php', true); //DA CAPIRE QUALE URL UTILIZZARE
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
@@ -184,11 +255,11 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
                 var login = JSON.parse(xhr.response);
                 if(login.admin==1) //se l'admin ha effettuato il login
                 {
-                    page("./indexAdmin.html");
+                    page("./indexAdmin.php");
                 }
                 else //per gli utenti normali
                 {
-                    page("./index.html");
+                    page("./indexUser.php");
                 }
             }
             catch(e) //nel caso non sia trovato un utente
@@ -219,4 +290,10 @@ function countdown() { //countdown reindirizzamento pagina
         document.getElementById("countdown").innerHTML = seconds;
         window.setTimeout("countdown()", 1000);
     }
+}
+
+/* Quando si clicca sul bottone si apre il dropdown */
+function DropdownFunction()
+{
+    document.getElementById("Dropdown").classList.toggle("show");
 }

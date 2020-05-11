@@ -28,6 +28,29 @@
 			echo $js_encode;
 			break;
 
+		case 'GETNOTLOGGED':
+			$id = '';
+			if(isset($_GET['id']))
+			{
+				$id = $_GET['id'];
+				$song->_id = $id;
+				$data = $song->one(); //NON ANCORA IMPLEMENTATO
+			}
+			else
+			{
+				$data = $song->getLite();
+			}
+			if(!empty($data))
+			{
+				$js_encode = json_encode($data, true);
+			}
+			else
+			{
+				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'There is no record yet.'), true);
+			}
+			header('Content-Type: application/json');
+			echo $js_encode;
+			break;
 		/* DA IMPLEMENTARE
 		case 'POST':
 			$stud = json_decode(file_get_contents("php://input"),true);

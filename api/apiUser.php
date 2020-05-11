@@ -68,6 +68,8 @@
                     }
                     else
                     {
+                        session_start();
+                        $_SESSION["user"] = $userToMatch['Username'];
                         $js_encode = json_encode($data, true);
                         header('Content-Type: application/json');
                         echo $js_encode;

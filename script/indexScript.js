@@ -15,3 +15,17 @@ document.addEventListener('play', function(e) //funzione per impedire la riprodu
         oldAudio = e.target; //viene salvata la nuova canzone come l'ultima riprodotta
     }
 }, true);
+
+// Chiude il dropdown se si clicca fuori da esso
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+        }
+    }
+    }
+}

@@ -1,12 +1,3 @@
-<!--<!DOCTYPE html>
-<html>
-	<head>
-        <script src="./script/script.js"></script>
-	</head>
-	<body onload="page('LogIn.php')">
-    </body>
-</html>-->
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr" class="sid-plesk">
 	<head>
@@ -22,19 +13,39 @@
 		
 		<script src="./script/script.js"></script>
 		<script src="./script/indexScript.js"></script>
+
+		<?php session_start();?>
 	</head>
-	<body onload="getCanzoniLite();" class="text-light" style="background-color:#121212; ">
+	<body onload="getCanzoni();" class="text-light" style="background-color:#121212; ">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
-					<a href=""><img src="img/Musica.jpeg" style="width: 50px; height: 50px;"></a>
+					<a href=""><img src="img/Musica.jpeg" class="TitleIcon"></a>
 					<div class="User">
 						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
 						<div id="Dropdown" class="dropdown-content">
 							<a href="SignUp.php">Sign Up</a>
 							<a href="LogIn.php">Log In</a>
+							<a href="indexUser.php?logout=true">Log Out</a>
 						</div>
+						<?php
+							if(isset($_SESSION["user"])) //nel caso l'utente abbia effettuato il login
+							{
+								echo '<div class="usernameDisplay">' . $_SESSION["user"] . '</div>';
+							}
+							else //nel caso l'utente non sia loggato
+							{
+								session_destroy();
+								header("Location: ./index.html");
+							}
+
+							if(isset($_GET["logout"])) //alla pressione del bottone di logout
+							{
+								session_destroy();
+								header("Location: ./index.html");
+							}
+						?>
 					</div>
 
 				</div>

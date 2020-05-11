@@ -99,7 +99,7 @@ CREATE TABLE `canzone_artista` (
 
 LOCK TABLES `canzone_artista` WRITE;
 /*!40000 ALTER TABLE `canzone_artista` DISABLE KEYS */;
-INSERT INTO `canzone_artista` VALUES (1,1,4),(2,2,4),(3,3,4),(4,4,5);
+INSERT INTO `canzone_artista` VALUES (1,1,4),(2,2,4),(3,3,4),(4,4,5),(5,5,4);
 /*!40000 ALTER TABLE `canzone_artista` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +130,7 @@ CREATE TABLE `canzoni` (
 
 LOCK TABLES `canzoni` WRITE;
 /*!40000 ALTER TABLE `canzoni` DISABLE KEYS */;
-INSERT INTO `canzoni` VALUES (1,'Gianna',10,'Folk epico',2020,'./songs/Gianna-Mauro_Lapio.mp3',4),(2,'Eruption',10,'Metal bello',2020,'./songs/Eruption-Mauro_Lapio.mp3',4),(3,'I Don\'t Wanna Miss a Thing',10,'Classic Rock',1998,'./songs/I_Dont_Wanna_Miss_A_Thing-Mauro_Lapio.mp3',4),(4,'8bit-tella',71,'Chiptune',2020,'./songs/8Bit_tella-Riccardo_Degli_Esposti.mp3',5);
+INSERT INTO `canzoni` VALUES (1,'Gianna',10,'Folk epico',2020,'./songs/Gianna-Mauro_Lapio.mp3',4),(2,'Eruption',10,'Metal bello',2020,'./songs/Eruption-Mauro_Lapio.mp3',4),(3,'I Don\'t Wanna Miss a Thing',10,'Classic Rock',1998,'./songs/I_Dont_Wanna_Miss_A_Thing-Mauro_Lapio.mp3',4),(4,'8bit-tella',71,'Chiptune',2020,'./songs/8Bit_tella-Riccardo_Degli_Esposti.mp3',5),(5,'Generic 80s Rock',10,'Rock base anni \'80', 2020, './songs/Generic_80s_Rock-Mauro_Lapio.mp3',4);
 /*!40000 ALTER TABLE `canzoni` ENABLE KEYS */;
 UNLOCK TABLES;
 
