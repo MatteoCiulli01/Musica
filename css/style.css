@@ -14,6 +14,64 @@ body {
     height: 100%;
     min-height: 100%;
     background-color:#121212;
+    margin: 0;
+    padding: 0;
+}
+body::-webkit-scrollbar
+{
+    width: 10px;
+}
+body::-webkit-scrollbar-track
+{
+    background: #171c21;
+}
+body::-webkit-scrollbar-thumb
+{
+    background: #eb9b28;
+}
+input
+{
+	margin-bottom: 10px;
+}
+#modulo
+{
+	width: 500px;
+	margin: auto;
+	margin-top: 70px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+#attEmail
+{
+	width: 1000px;
+	margin: auto;
+	margin-top: 20px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+#us
+{
+	color: green;
+	font-size: 20px;
+}
+#Username,#Sesso,#eMail,#Password
+{
+	margin-bottom: 20px;
+}
+
+#login
+{
+	margin-left:40%;
+}
+
+#status
+{
+	color:red;
+	text-align:center;
 }
 body { margin: 0; }
 a { background-color: transparent; }
@@ -50,7 +108,7 @@ img {
 .page-content-wrapper { height: 100%; }
 .page-header
 {
-    height: 50px;
+    height: 60px;
     border-bottom: 1px solid #1c2229;
     background: #222a32;
 }
@@ -61,7 +119,6 @@ img {
 }
 .page-header:after { clear: both; }
 .page-content {
-    margin: auto;
     padding: 20px 10px;
     max-width: 960px;
 }
@@ -94,7 +151,7 @@ img {
     margin-top: 9px;
 }
 .company-logo img { height: 31px; }
-.page-info-wrapper { margin-bottom: 15px; }
+/*.page-info-wrapper { margin-bottom: 15px; }
 .page-info {
     box-sizing: border-box;
     padding: 20px;
@@ -182,7 +239,7 @@ img {
     color: #fff;
     background: #09729f;
 }
-.product-info-content { padding: 10px; }
+.product-info-content { padding: 10px; }*/
 
 @media (max-width: 767px) {
     .page-header-wrapper { height: auto !important; }
@@ -191,7 +248,7 @@ img {
     .links > li { width: 33.33%; }
 }
 @media (min-width: 768px) {
-    .page-header-wrapper { height: 51px; }
+    .page-header-wrapper { height: 60px; }
     .page-header {
         box-sizing: border-box;
         position: fixed;
@@ -200,7 +257,7 @@ img {
         right: 0;
         left: 0;
         width: 100%;
-        height: 51px;
+        height: 60px;
     }
     .page-header,
     .page-content,
@@ -351,14 +408,18 @@ iframe { border: 1px solid #bebebe; }
 {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    background-color: #121212;
     min-width: 160px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover 
+{
+    background-color: #eb9b28;
+    color: #fff
+}
 
 .User 
 {
@@ -374,14 +435,14 @@ iframe { border: 1px solid #bebebe; }
 
 .dropbtn
 {
-    width: 30px;
-    height: 40px;
+    height: 50px;
+    width: 40px;
     margin-top: 5px;
 }
 
 .dropdown-content a 
 {
-    color: black;
+    color: #fff;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -389,9 +450,9 @@ iframe { border: 1px solid #bebebe; }
 
 .TitleIcon
 {
-    width: 50px;
-    height: 50px;
-    margin-left:-95px;
+    width: 120px;
+    height: 60px;
+    /*margin-left:-95px;*/
 }
 
 .canzonealbumcover

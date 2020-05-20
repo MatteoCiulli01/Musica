@@ -1,7 +1,7 @@
 <!DOCTYPE html>                      
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="./css/SignUp.css">
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <script src="./script/script.js"></script>
 
@@ -12,7 +12,7 @@
     <body style="background-color:#121212; ">
         <div id="allbox">
             <div class="page-header">
-                <a href="index.html"><img src="img/Musica.jpeg" class="TitleIcon"></a>
+                <a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>
             </div>
 			<div id="modulo">
 				<form method="match">

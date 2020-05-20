@@ -21,7 +21,7 @@
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
-					<a href=""><img src="img/Musica.jpeg" class="TitleIcon"></a>
+					<a href=""><img src="img/Musica.png" class="TitleIcon"></a>
 					<div class="User">
 						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
 						<div id="Dropdown" class="dropdown-content">
