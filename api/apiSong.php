@@ -51,6 +51,22 @@
 			header('Content-Type: application/json');
 			echo $js_encode;
 			break;
+
+		case 'DELETE':
+			$id = $_GET['id'];
+			$song->_id = $id;
+			$data = $song->delete();
+			if(!empty($data))
+			{
+				$js_encode = json_encode(array($data), true);
+			}
+			else
+			{
+				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'There is no record yet.'), true);
+			}
+			header('Content-Type: application/json');
+			echo $js_encode;
+			break;
 		/* DA IMPLEMENTARE
 		case 'POST':
 			$stud = json_decode(file_get_contents("php://input"),true);
@@ -74,22 +90,6 @@
 				header('Content-Type: application/json');
 				echo $js_encode;
 			}
-			break;
-
-		case 'DELETE':
-			$id = $_GET['id'];
-			$student->_id = $id;
-			$data = $student->delete();
-			if(!empty($data))
-			{
-				$js_encode = json_encode(array($data), true);
-			}
-			else
-			{
-				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'There is no record yet.'), true);
-			}
-			header('Content-Type: application/json');
-			echo $js_encode;
 			break;
 
 		case 'PATCH':

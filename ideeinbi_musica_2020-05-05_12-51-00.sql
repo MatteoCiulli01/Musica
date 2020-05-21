@@ -35,6 +35,7 @@ CREATE TABLE `album` (
   PRIMARY KEY (`id_album`),
   KEY `cod_artista` (`cod_artista`),
   CONSTRAINT `Album_ibfk_1` FOREIGN KEY (`cod_artista`) REFERENCES `artisti` (`id_artista`)
+  ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -88,8 +89,9 @@ CREATE TABLE `canzone_artista` (
   PRIMARY KEY (`id_canzoneartista`),
   KEY `cod_canzone` (`cod_canzone`),
   KEY `cod_artista` (`cod_artista`),
-  CONSTRAINT `Canzone_Artista_ibfk_1` FOREIGN KEY (`cod_canzone`) REFERENCES `canzoni` (`id_canzone`),
-  CONSTRAINT `Canzone_Artista_ibfk_2` FOREIGN KEY (`cod_artista`) REFERENCES `artisti` (`id_artista`)
+  CONSTRAINT `canzone_artista_ibfk_1` FOREIGN KEY (`cod_canzone`) REFERENCES `canzoni` (`id_canzone`),
+  CONSTRAINT `canzone_artista_ibfk_2` FOREIGN KEY (`cod_artista`) REFERENCES `artisti` (`id_artista`)
+  ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,6 +123,7 @@ CREATE TABLE `canzoni` (
   PRIMARY KEY (`id_canzone`),
   KEY `cod_album` (`cod_album`),
   CONSTRAINT `Canzoni_ibfk_1` FOREIGN KEY (`cod_album`) REFERENCES `album` (`id_album`)
+  ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -175,6 +178,7 @@ CREATE TABLE `utenti` (
   PRIMARY KEY (`id_utente`),
   KEY `cod_credenziali` (`cod_credenziali`),
   CONSTRAINT `Utenti_ibfk_1` FOREIGN KEY (`cod_credenziali`) REFERENCES `credenziali` (`id_credenziali`)
+  ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

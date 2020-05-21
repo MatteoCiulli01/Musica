@@ -47,7 +47,7 @@
 		{
 			try
 			{
-				$sql = "SELECT album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, album.nome AS Nome_Album, C.url_canzone FROM canzoni C INNER JOIN artisti A INNER JOIN canzone_artista CA INNER JOIN album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = album.cod_artista";
+				$sql = "SELECT C.id_canzone, album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, album.nome AS Nome_Album, C.url_canzone FROM canzoni C INNER JOIN artisti A INNER JOIN canzone_artista CA INNER JOIN album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = album.cod_artista";
 				$stmt = $this-> db->prepare($sql);
 
 				$stmt->execute();
@@ -94,6 +94,36 @@
 			}
 		}
 
+		public function delete()
+		{
+			try
+			{
+				$status = 0;
+
+				$sql = "DELETE FROM canzone_artista WHERE cod_canzone = :id";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id' => $this->_id
+				];
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+
+				$sql = "DELETE FROM canzoni WHERE id_canzone = :id";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id' => $this->_id
+				];
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+
+				return $status;
+			}
+			catch (Exception $e)
+			{
+				die("Oh noes! There's an error in the query! ".$e);
+			}
+		}
+
 		/*
 		public function getLast()
 		{
@@ -104,34 +134,6 @@
 				$stmt->execute($data);
 				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
 				return $result;
-			}
-			catch (Exception $e)
-			{
-				die("Oh noes! There's an error in the query! ".$e);
-			}
-		}
-
-		public function delete()
-		{
-			try
-			{
-				$sql = "DELETE FROM student_class WHERE id_student=:id";
-				$stmt = $this->db->prepare($sql);
-				$data = [
-					'id' => $this->_id
-				];
-				$stmt->execute($data);
-				$status = $stmt->rowCount();
-
-				$sql = "DELETE FROM student WHERE id=:id";
-				$stmt = $this->db->prepare($sql);
-				$data = [
-					'id' => $this->_id
-				];
-				$stmt->execute($data);
-				$status = $stmt->rowCount();
-
-				return $status;
 			}
 			catch (Exception $e)
 			{
