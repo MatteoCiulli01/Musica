@@ -2,7 +2,6 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext,cyrillic,cyrillic-ext,greek,greek-ext,vietnamese);
 html
 {
-    font: normal 13px/1.4 "Open Sans", "Helvetica Neue", Helvetica, sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     /*-webkit-tap-highlight-color: rgba(0, 0, 0, 0);*/
@@ -35,7 +34,7 @@ input
 }
 #modulo
 {
-	width: 500px;
+	width: 60%;
 	margin: auto;
 	margin-top: 70px;
 	background-color: #222a32;
@@ -61,11 +60,6 @@ input
 #Username,#Sesso,#eMail,#Password
 {
 	margin-bottom: 20px;
-}
-
-#login
-{
-	margin-left:40%;
 }
 
 #status

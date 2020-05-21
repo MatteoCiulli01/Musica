@@ -26,7 +26,9 @@
                         <input id="Password" name = "Password" type="password" class="form-control"	placeholder="Password" required>
                     </div>
                 </form>
-                <button id="login" class="btn btn-primary" name="Login" onclick="matchCredenziali()">Log in</button>
+                <div class="login-btn">
+                    <button id="login" class="btn btn-primary" name="Login" onclick="matchCredenziali()">Log in</button>
+                </div>
                 </br></br><div><p align="center">Non possiedi un account? <a href="SignUp.php"><b>Registrati</b></a></p></div>
             </div>
             <div id="status">
