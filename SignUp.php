@@ -6,7 +6,7 @@
         <script src="./script/script.js"></script>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
-    <body style="background-color:#121212; ">
+    <body class="mainbody">
         <div id="allbox">
 				<div class="page-header">
 					<a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>

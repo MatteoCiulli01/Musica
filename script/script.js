@@ -296,4 +296,8 @@ function countdown() { //countdown reindirizzamento pagina
 function DropdownFunction()
 {
     document.getElementById("Dropdown").classList.toggle("show");
+    var w = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    document.getElementById("Dropdown").style.left = w - document.getElementById("Dropdown").offsetWidth + "px";
 }
