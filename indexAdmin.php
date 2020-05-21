@@ -16,7 +16,7 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getArtisti();" class="text-light" style="background-color:#121212; ">
+	<body onload="getArtisti(); getCanzoni();" class="text-light" style="background-color:#121212; ">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
@@ -55,8 +55,8 @@
 					<h2>Artisti</h2>
 					<div id="contentArtisti"></div>
 					<br>
-					<!--<h2>Canzoni</h2>
-					<div id="contentCanzoni"></div>-->
+					<h2>Canzoni</h2>
+					<div id="contentCanzoni"></div>
 				</div>
 			</div>
 			<!-- end: PAGE CONTENT-->

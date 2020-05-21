@@ -23,6 +23,9 @@ function output(array, classname, div)
             {
                 switch(key)
                 {
+                    case "id_canzone":
+                        obj.id=classname.slice(0,3)+proprieta; //esempio classname=canzone e id=1 --> can1
+                        break;
                     case "url_canzone":
                         var br = document.createElement("br");
                         var divObj = document.createElement("audio");
@@ -117,7 +120,59 @@ function output(array, classname, div)
             }*/
             document.getElementById(div).appendChild(obj);
         }
+
+        if(window.location.pathname == "/indexAdmin.php")
+        {
+            obj.appendChild(adminButtons(obj.id));
+        }
         i++;
+    }
+}
+
+function adminButtons(id)
+{
+    var divButtons = document.createElement("div");
+    divButtons.className = "adminButtons";
+    var deleteBtn = document.createElement("img");
+    deleteBtn.id="adminDelete_"+id; //esempio: adminDelete_can1
+    /*deleteBtn.className = "btn btn-info";*/
+    deleteBtn.setAttribute("src","./img/deletebtn.png");
+    deleteBtn.setAttribute("onclick", "deleteObject('" + id + "')");
+    var editBtn = document.createElement("img");
+    editBtn.id="adminEdit_"+id; //esempio: adminEdit_canzone1
+    /*editBtn.className = "btn btn-info";*/
+    editBtn.setAttribute("src","./img/editbtn.png");
+
+    divButtons.appendChild(editBtn);
+    divButtons.appendChild(deleteBtn);
+
+    return divButtons;
+}
+
+function deleteObject(objName)
+{
+    if(objName.slice(0,3)=="can")
+    {
+        var id = objName.slice(3,4);
+        //preparo la richiesta ajax
+        let xhr = new XMLHttpRequest();
+        xhr.open("DELETE", 'api/apiSong.php?id='+ id, true);
+        //configuro la callback di risposta ok
+        xhr.onload = function()
+        {
+            console.log(xhr.response);
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+
+            getCanzoni();
+            
+        };
+        //configuro la callback di errore
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        //invio la richiesta ajax
+        xhr.send();
     }
 }
 
@@ -125,7 +180,7 @@ function getArtisti()
 {
     //preparo la richiesta ajax
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", 'api/apiArtist.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+    xhr.open("GET", 'api/apiArtist.php', true);
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
@@ -146,7 +201,7 @@ function getCanzoni()
 {
     //preparo la richiesta ajax
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", 'api/apiSong.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+    xhr.open("GET", 'api/apiSong.php', true); 
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
@@ -166,7 +221,7 @@ function getCanzoniLite() //output delle canzoni per gli utenti non loggati
 {
     //preparo la richiesta ajax
     let xhr = new XMLHttpRequest();
-    xhr.open("GETNOTLOGGED", 'api/apiSong.php', true); //DA CAPIRE QUALE URL UTILIZZARE
+    xhr.open("GETNOTLOGGED", 'api/apiSong.php', true);
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
