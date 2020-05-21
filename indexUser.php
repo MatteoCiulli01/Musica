@@ -16,17 +16,13 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getCanzoni();" class="text-light" style="background-color:#121212; ">
+	<body onload="getCanzoni();" class="mainbody">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
 					<a href=""><img src="img/Musica.png" class="TitleIcon"></a>
 					<div class="User">
-						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
-						<div id="Dropdown" class="dropdown-content">
-							<a href="indexUser.php?logout=true">Log Out</a>
-						</div>
 						<?php
 							if(isset($_SESSION["user"])) //nel caso l'utente abbia effettuato il login
 							{
@@ -44,6 +40,10 @@
 								header("Location: ./index.html");
 							}
 						?>
+						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
+						<div id="Dropdown" class="dropdown-content">
+							<a href="indexUser.php?logout=true">Log Out</a>
+						</div>
 					</div>
 
 				</div>

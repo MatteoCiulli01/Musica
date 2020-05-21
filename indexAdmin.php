@@ -16,7 +16,7 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getArtisti(); getCanzoni();" class="text-light" style="background-color:#121212; ">
+	<body onload="getArtisti(); getCanzoni();" class="mainbody" style="background-color:#121212; ">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
