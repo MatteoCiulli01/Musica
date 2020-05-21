@@ -21,7 +21,7 @@
 		{
 			try
 			{
-				$sql = 'SELECT id_credenziali FROM Credenziali WHERE username = :username';
+				$sql = 'SELECT id_credenziali FROM credenziali WHERE username = :username';
 				$data = [
 					'username' => $this->_username
 				];
@@ -40,7 +40,7 @@
 		{
 			try
 			{
-				$sql = 'SELECT email FROM Utenti WHERE email = :email';
+				$sql = 'SELECT email FROM utenti WHERE email = :email';
 				$data = [
 					'email' => $email
 				];
@@ -62,7 +62,7 @@
 			{
 				if($this->getCredenziali($this->_username)==0 && $this->checkEmail($this->_email)==0) //se non esiste un utente con lo stesso username o con la stessa email
 				{
-					$sql = 'INSERT INTO Credenziali (username, password)  VALUES (:username, :password)';
+					$sql = 'INSERT INTO credenziali (username, password)  VALUES (:username, :password)';
 					$data = [
 						'username' => $this->_username,
 						'password' => $this->_password
@@ -73,7 +73,7 @@
 
 					$cod_credenziali = $this->getCredenziali($this->_username);
 
-					$sql = 'INSERT INTO Utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
+					$sql = 'INSERT INTO utenti (email, sesso, admin, cod_credenziali)  VALUES (:email, :sesso, :admin, :cod_credenziali)';
 					$data = [
 						'email' => $this->_email,
 						'sesso' => $this->_sesso,
@@ -102,7 +102,7 @@
 		{
 			try
 			{
-				$sql = "SELECT admin FROM Utenti U INNER JOIN Credenziali C ON C.id_credenziali = U.cod_credenziali WHERE C.username = :username AND C.password = :password";
+				$sql = "SELECT admin FROM utenti U INNER JOIN credenziali C ON C.id_credenziali = U.cod_credenziali WHERE C.username = :username AND C.password = :password";
 				$data = [
 					'username' => $this->_username,
 					'password' => $this->_password

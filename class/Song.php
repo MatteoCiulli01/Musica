@@ -47,7 +47,7 @@
 		{
 			try
 			{
-				$sql = "SELECT Album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, Album.nome AS Nome_Album, C.url_canzone FROM Canzoni C INNER JOIN Artisti A INNER JOIN Canzone_Artista CA INNER JOIN Album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = Album.cod_artista";
+				$sql = "SELECT album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, album.nome AS Nome_Album, C.url_canzone FROM Canzoni C INNER JOIN artisti A INNER JOIN canzone_artista CA INNER JOIN album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = album.cod_artista";
 				$stmt = $this-> db->prepare($sql);
 
 				$stmt->execute();
@@ -65,7 +65,7 @@
 		{
 			try
 			{
-				$sql = "SELECT Album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, Album.nome AS Nome_Album FROM Canzoni C INNER JOIN Artisti A INNER JOIN Canzone_Artista CA INNER JOIN Album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = Album.cod_artista";
+				$sql = "SELECT album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, album.nome AS Nome_Album FROM Canzoni C INNER JOIN artisti A INNER JOIN canzone_artista CA INNER JOIN album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = album.cod_artista";
 				$stmt = $this-> db->prepare($sql);
 
 				$stmt->execute();

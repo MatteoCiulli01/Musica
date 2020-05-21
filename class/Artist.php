@@ -45,7 +45,7 @@
 		{
 			try
 			{
-				$sql = "SELECT * FROM Artisti";
+				$sql = "SELECT * FROM artisti";
 				$stmt = $this->db->prepare($sql);
 
 				$stmt->execute();
