@@ -27,7 +27,7 @@
 				];
 				$stmt = $this->db->prepare($sql);
 				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
-				return $result;
+				return $result["id_credenziali"];
 
 			} catch (Exception $e)
 			{
@@ -60,7 +60,7 @@
 		{
 			try
 			{
-				if($this->getCredenziali($this->_username)==0 && $this->checkEmail($this->_email)==0) //se non esiste un utente con lo stesso username o con la stessa email
+				if($this->getCredenziali($this->_username)==null && $this->checkEmail($this->_email)==0) //se non esiste un utente con lo stesso username o con la stessa email
 				{
 					$sql = 'INSERT INTO credenziali (username, password)  VALUES (:username, :password)';
 					$data = [
