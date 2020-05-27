@@ -14,7 +14,7 @@
             <div class="page-header">
                 <a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>
             </div>
-			<div id="modulo">
+			<div class="modulo">
 				<form method="match">
                     <h2>Log in</h2>
                     <div id="EnterUsername">

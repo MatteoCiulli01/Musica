@@ -67,31 +67,34 @@
 			header('Content-Type: application/json');
 			echo $js_encode;
 			break;
-		/* DA IMPLEMENTARE
+		
 		case 'POST':
-			$stud = json_decode(file_get_contents("php://input"),true);
+			$newSong = json_decode(file_get_contents("php://input"),true);
 
-			if(strcmp($stud['name'],"") != 0 && strcmp($stud['surname'],"") != 0 && strcmp($stud['sidi_code'],"") != 0 && strcmp($stud['tax_code'],"") != 0) //controlla che tutti i valori siano stati passati
+			if(strcmp($newSong['Titolo'],"") != 0 && strcmp($newSong['Genere'],"") != 0 && strcmp($newSong['Anno'],"") != 0 && strcmp($newSong['Album'],"") != 0 && strcmp($newSong['Path'],"") != 0) //controlla che tutti i valori siano stati passati
 			{
-				$student->_name = $stud['name'];
-				$student->_surname = $stud['surname'];
-				$student->_sidiCode = $stud['sidi_code'];
-				$student->_taxCode = $stud['tax_code'];
+				$song->_titolo = $newSong['Titolo'];
+				$song->_durata = 10;
+				$song->_anno = $newSong['Anno'];
+				$song->_genere = $newSong['Genere'];
+				$song->_url_canzone = "./songs/" . $newSong['Path'];
+				$song->_cod_album = $newSong['Album'];
+				$data = $song->insert();
 
-				$data = $student->insert();
-				$js_encode = json_encode(array($data), true);
-
-				header('Content-Type: application/json');
-				echo $js_encode;
+				if(is_numeric($data)) //solo se il messaggio è un valore numerico
+				{
+					$newFile = fopen("../songs/" . $newSong['Path'], "wb");
+					fwrite($newFile, base64_decode($newSong['File']));
+					fclose($newFile);
+				}
 			}
 			else
 			{
-				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Input studente non valido'), true);
-				header('Content-Type: application/json');
-				echo $js_encode;
+				echo "Inserisci tutti i dati";
 			}
 			break;
 
+		/* DA IMPLEMENTARE
 		case 'PATCH':
 			$stud = json_decode(file_get_contents("php://input"),true);
 

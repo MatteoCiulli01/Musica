@@ -11,7 +11,7 @@
 				<div class="page-header">
 					<a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>
 				</div>
-			<div id="modulo">
+			<div class="modulo">
 				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
 						<label >Username</label>

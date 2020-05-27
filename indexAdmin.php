@@ -16,7 +16,7 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getArtisti(); getCanzoni();" class="mainbody" style="background-color:#121212; ">
+	<body onload="getArtisti(); getCanzoni(); getAlbumDropdown();" class="mainbody" style="background-color:#121212; ">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
@@ -57,6 +57,40 @@
 					<br>
 					<h2>Canzoni</h2>
 					<div id="contentCanzoni"></div>
+					<div id="addSongs">
+						<img class="addBtn" src="./img/addbtn.png" onclick="showAddCanzone()"></img>
+						<div id="addSongPanel" class="modulo">
+							<form method="post">
+								<h2>Aggiungi canzone</h2>
+								<div id="EnterTitolo">
+									<label>Titolo</label>
+									<input id="Title" name="Title" class="form-control" placeholder="Titolo" required>
+								</div>
+								<div id="EnterGenere">
+									<label>Genere</label>
+									<input id="Genre" name = "Genre" class="form-control" placeholder="Genere" required>
+								</div>
+								<div id="EnterAnno">
+									<label>Anno</label>
+									<input id="Year" name = "Year" class="form-control" placeholder="Anno" required>
+								</div>
+								<div id="EnterFile">
+									<label>File MP3</label>
+									<input onchange="checkifMP3()" type="file" id="File" name = "mp3" class="form-control" placeholder="File" required>
+								</div>
+								<div id="EnterAlbum">
+									<label>Album</label>
+									<select id="Album" default="Seleziona Album">
+									</select>
+								</div>
+							</form>
+							<div class="add-btn">
+								<button class="btn btn-primary" name="Aggiungi" onclick="addCanzone()">Aggiungi</button>
+								<button class="btn btn-secondary" name="Annulla" onclick="hideAddCanzone()">Annulla</button>
+							</div>
+							<div id="status"></div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- end: PAGE CONTENT-->

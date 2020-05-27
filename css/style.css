@@ -32,7 +32,7 @@ input
 {
 	margin-bottom: 10px;
 }
-#modulo
+.modulo
 {
 	width: 30%;
 	margin: auto;
@@ -507,4 +507,39 @@ iframe { border: 1px solid #bebebe; }
 {
     background-color: #121212;
     color: #fff;
+}
+
+.addBtn
+{
+    width: 75px;
+    height: 75px;
+    margin-left:200px;
+    margin-top:15px;
+}
+
+.addBtn:hover
+{
+    cursor: pointer;
+}
+
+#addSongPanel
+{
+    width:500px;
+    margin-left:0px;
+    margin-top:20px;
+}
+
+.add-btn
+{
+    margin-top: 10px;
+}
+
+#EnterAlbum
+{
+    margin-top: 10px;
+}
+
+#addSongPanel
+{
+    display: none;
 }
