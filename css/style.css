@@ -543,3 +543,24 @@ iframe { border: 1px solid #bebebe; }
 {
     display: none;
 }
+#attEmail
+{
+	width: 30%;
+	margin: auto;
+	margin-top: 70px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+#check
+{
+	width: 30%;
+	margin: auto;
+	margin-top: 70px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}

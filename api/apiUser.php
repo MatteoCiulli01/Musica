@@ -38,6 +38,7 @@
                     $user->_email = $newUser['eMail'];
                     $user->_sesso = $newUser['Sesso'];
                     $user->_admin = 0;
+                    $user->_confirmed = 0;
                     $user->_username = $newUser['Username'];
 					$user->_password = md5($newUser['Password']);
     
@@ -62,17 +63,25 @@
                     $user->_username = $userToMatch['Username'];
                     $user->_password = md5($userToMatch['Password']);
                     $data = $user->match();
+                    $check = $user->ifConf($userToMatch['Username']);
                     if($data == 0)
                     {
                         echo "Nome utente o password errati o account inesistente";
                     }
                     else
                     {
-                        session_start();
-                        $_SESSION["user"] = $userToMatch['Username'];
-                        $js_encode = json_encode($data, true);
-                        header('Content-Type: application/json');
-                        echo $js_encode;
+                        if($check == 0)
+                        {
+                            echo "Account non attivato";
+                        }
+                        else
+                        {
+                            session_start();
+                            $_SESSION["user"] = $userToMatch['Username'];
+                            $js_encode = json_encode($data, true);
+                            header('Content-Type: application/json');
+                            echo $js_encode;
+                        }
                     }
                 }
                 else

@@ -264,17 +264,8 @@ function setUtente()
             else
             {
                 document.getElementById("modulo").style.display = "none"; //nasconde il div di signup
-                document.getElementById("status").style.display = "none"; //nasconde il div di stato del signup
-                document.getElementById("attEmail").style.display = "block"; //mostra il div di conferma
-                
-                document.getElementById('conf').onclick = function()
-                {
-                    document.getElementById("attEmail").style.display = "none"; 
-                    document.getElementById("check").style.display = "block"; 
-                    document.getElementById("us").innerHTML = document.getElementById("Username").value; //assegna al p us il valore dell'username inserito in modo di mostrarlo a video nel div check
-                    countdown();//avvia la funzione countdown che dopo tot secondi reindizzerà alla pagina login
-                };
-            
+                document.getElementById("status").style.display = "none"; //nasconde il div di stato del signup*/
+                document.getElementById("attEmail").style.display = "block"; //mostra il div di conferma 
             }
         }
     };
@@ -460,4 +451,35 @@ function DropdownFunction()
     || document.documentElement.clientWidth
     || document.body.clientWidth;
     document.getElementById("Dropdown").style.left = w - document.getElementById("Dropdown").offsetWidth + "px";
+}
+
+function controlloCod()
+{
+    var confirm_code = document.getElementById('confCod').value;
+    var username = document.getElementById("Username").value;
+    let xhr = new XMLHttpRequest();
+    xhr.open("MATCH", 'api/apiCod.php', true); 
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        document.getElementById('attEmail').innerHTML = xhr.response;
+        var ret = JSON.parse(xhr.response);
+        if(ret.result==true)
+        {
+            document.getElementById("attEmail").style.display = "none";
+            document.getElementById("check").style.display = "block";
+            document.getElementById("us").innerHTML = document.getElementById("Username").value; //assegna al p us il valore dell'username inserito in modo di mostrarlo a video nel div check
+            countdown();//avvia la funzione countdown che dopo tot secondi reindizzerà alla pagina login
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+
+    xhr.send(JSON.stringify({
+        "confirm_code":confirm_code,
+        "username":username 
+        }));
 }

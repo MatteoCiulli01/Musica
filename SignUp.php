@@ -41,22 +41,28 @@
                     <button type="submit" class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
                     <button type="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
                 </div>
+
                 </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
+        
+                <div id="status">
+                <!--dove verranno visualizzate le risposte delle richieste xhr-->
+                </div>
+
             </div>
-            <div id ="attEmail" style="display:none">
+        </div>
+
+                <div id="attEmail" style="display:none">
                 <p>Registrazione eseguita, controlla la tua casella mail e inserirsci il codice di conferma:</p>
                 <input type="text" id="confCod" maxlength="6" size="6"></input>
-                <button type="button" name="conf" id="conf">Conferma</button>
-            </div>
-            <div id="check" style="display:none"> <!-- div che verrà mostrato a video solo dopo la registrazione per un certo periodo di tempo, serve per far capire all'utente che l'account è stato creato con successo-->
+                <button class="btn btn-primary" type="button" name="conf" id="conf" onclick="controlloCod()">Conferma</button>
+                </div>
+
+                <div id="check" style="display:none"> <!-- div che verrà mostrato a video solo dopo la registrazione per un certo periodo di tempo, serve per far capire all'utente che l'account è stato creato con successo-->
                 <p><h1>L'account è stato registrato correttamente con l'username</h1></p>
                 <p id="us"></p><p>Verrai reindirizzato a una pagina di login tra :</p>
                 <p id="countdown"></p>
-            </div>
-            <div id="status">
-                <!--dove verranno visualizzate le risposte delle richieste xhr-->
-            </div>
-        </div>
+                </div>
+
     </body>
 </html>
 
