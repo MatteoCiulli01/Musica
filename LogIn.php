@@ -31,7 +31,7 @@
                 </div>
                 </br></br><div><p align="center">Non possiedi un account? <a href="SignUp.php"><b>Registrati</b></a></p></div>
             </div>
-            <div id="status">
+            <div id="LogInStatus" class="status">
                 <!--dove verranno visualizzate le risposte delle richieste xhr-->
             </div>
         </div>

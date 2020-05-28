@@ -77,13 +77,13 @@
 				$song->_durata = 10;
 				$song->_anno = $newSong['Anno'];
 				$song->_genere = $newSong['Genere'];
-				$song->_url_canzone = "./songs/" . $newSong['Path'];
+				$song->_url_canzone = "../songs/" . $newSong['Path'];
 				$song->_cod_album = $newSong['Album'];
 				$data = $song->insert();
 
 				if(is_numeric($data)) //solo se il messaggio è un valore numerico
 				{
-					$newFile = fopen("../songs/" . $newSong['Path'], "wb");
+					$newFile = fopen($song->_url_canzone, "wb");
 					fwrite($newFile, base64_decode($newSong['File']));
 					fclose($newFile);
 				}

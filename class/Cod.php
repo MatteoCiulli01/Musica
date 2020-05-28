@@ -11,7 +11,7 @@
         
         public function confirm($username)
         {
-            $sql = "UPDATE credenziali C INNER JOIN utenti U ON C.id_credenziali = U.cod_credenziali SET U.confirmed= 1 WHERE C.username= :username";
+            $sql = "UPDATE credenziali C INNER JOIN utenti U ON C.id_credenziali = U.cod_credenziali SET U.confirmed = 1 WHERE C.username= :username";
             $data = [
                 'username' => $username
             ];

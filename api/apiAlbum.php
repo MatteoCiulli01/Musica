@@ -19,18 +19,17 @@
 			echo $js_encode;
             break;
 
-        /* DA IMPLEMENTARE
 		case 'GET':
 			$id = '';
 			if(isset($_GET['id']))
 			{
 				$id = $_GET['id'];
-				$song->_id = $id;
-				$data = $song->one(); //NON ANCORA IMPLEMENTATO
+				$album->_id = $id;
+				$data = $album->one(); //NON ANCORA IMPLEMENTATO
 			}
 			else
 			{
-				$data = $song->getAll();
+				$data = $album->getAll();
 			}
 			if(!empty($data))
 			{
@@ -42,12 +41,39 @@
 			}
 			header('Content-Type: application/json');
 			echo $js_encode;
-            break;
+			break;
+
+		case 'POST':
+			$newAlbum = json_decode(file_get_contents("php://input"),true);
+
+			if(strcmp($newAlbum['Nome'],"") != 0 && strcmp($newAlbum['Genere'],"") != 0 && strcmp($newAlbum['Anno'],"") != 0 && strcmp($newAlbum['Artista'],"") != 0 && strcmp($newAlbum['Path'],"") != 0) //controlla che tutti i valori siano stati passati
+			{
+				$album->_nome = $newAlbum['Nome'];
+				$album->_anno = $newAlbum['Anno'];
+				$album->_genere = $newAlbum['Genere'];
+				$album->_url_cover = "../img/album/ " . $newAlbum['Path'];
+				$album->_cod_artista = $newAlbum['Artista'];
+				$data = $album->insert();
+
+				if(is_numeric($data)) //solo se il messaggio è un valore numerico
+				{
+					$newFile = fopen($album->_url_cover, "wb");
+					fwrite($newFile, base64_decode($newAlbum['File']));
+					fclose($newFile);
+				}
+			}
+			else
+			{
+				echo "Inserisci tutti i dati";
+			}
+			break;
+			
+		
             
 		case 'DELETE':
 			$id = $_GET['id'];
-			$song->_id = $id;
-			$data = $song->delete();
+			$album->_id = $id;
+			$data = $album->delete();
 			if(!empty($data))
 			{
 				$js_encode = json_encode(array($data), true);
@@ -59,31 +85,8 @@
 			header('Content-Type: application/json');
 			echo $js_encode;
 			break;
-		
-		case 'POST':
-			$stud = json_decode(file_get_contents("php://input"),true);
 
-			if(strcmp($stud['name'],"") != 0 && strcmp($stud['surname'],"") != 0 && strcmp($stud['sidi_code'],"") != 0 && strcmp($stud['tax_code'],"") != 0) //controlla che tutti i valori siano stati passati
-			{
-				$student->_name = $stud['name'];
-				$student->_surname = $stud['surname'];
-				$student->_sidiCode = $stud['sidi_code'];
-				$student->_taxCode = $stud['tax_code'];
-
-				$data = $student->insert();
-				$js_encode = json_encode(array($data), true);
-
-				header('Content-Type: application/json');
-				echo $js_encode;
-			}
-			else
-			{
-				$js_encode = json_encode(array('status'=>FALSE, 'message'=>'Input studente non valido'), true);
-				header('Content-Type: application/json');
-				echo $js_encode;
-			}
-			break;
-
+		/* DA IMPLEMENTARE
 		case 'PATCH':
 			$stud = json_decode(file_get_contents("php://input"),true);
 

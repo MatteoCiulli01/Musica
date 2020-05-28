@@ -16,7 +16,7 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getArtisti(); getCanzoni(); getAlbumDropdown();" class="mainbody" style="background-color:#121212; ">
+	<body onload="getArtisti(); getCanzoni(); getAlbum();" class="mainbody">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
@@ -55,6 +55,43 @@
 					<h2>Artisti</h2>
 					<div id="contentArtisti"></div>
 					<br>
+					<h2>Album</h2>
+					<div id="contentAlbum"></div>
+					<div id="addAlbum">
+						<img class="addBtn" src="./img/addbtn.png" onclick="showAddAlbum()"></img>
+						<div id="addAlbumPanel" class="modulo">
+							<form method="post">
+								<h2>Aggiungi album</h2>
+								<div id="AlbEnterNome">
+									<label>Nome</label>
+									<input id="AlbName" name="Title" class="form-control" placeholder="Nome" required>
+								</div>
+								<div id="AlbEnterGenere">
+									<label>Genere</label>
+									<input id="AlbGenre" name = "Genre" class="form-control" placeholder="Genere" required>
+								</div>
+								<div id="AlbEnterAnno">
+									<label>Anno</label>
+									<input id="AlbYear" name = "Year" class="form-control" placeholder="Anno" required>
+								</div>
+								<div id="AlbEnterCover">
+									<label>Cover</label>
+									<input onchange="checkifImage()" type="file" id="AlbFile" name = "image" class="form-control" placeholder="Cover" required>
+								</div>
+								<div id="AlbEnterNome">
+									<label>Artista</label>
+									<select id="AlbArtist">
+									</select>
+								</div>
+							</form>
+							<div class="add-btn">
+								<button class="btn btn-primary" name="Aggiungi" onclick="addAlbum()">Aggiungi</button>
+								<button class="btn btn-secondary" name="Annulla" onclick="showAddAlbum()">Annulla</button>
+							</div>
+							<div id="AlbStatus" class="status"></div>
+						</div>
+					</div>
+					<br>
 					<h2>Canzoni</h2>
 					<div id="contentCanzoni"></div>
 					<div id="addSongs">
@@ -62,35 +99,36 @@
 						<div id="addSongPanel" class="modulo">
 							<form method="post">
 								<h2>Aggiungi canzone</h2>
-								<div id="EnterTitolo">
+								<div id="CanEnterTitolo">
 									<label>Titolo</label>
-									<input id="Title" name="Title" class="form-control" placeholder="Titolo" required>
+									<input id="CanTitle" name="Title" class="form-control" placeholder="Titolo" required>
 								</div>
-								<div id="EnterGenere">
+								<div id="CanEnterGenere">
 									<label>Genere</label>
-									<input id="Genre" name = "Genre" class="form-control" placeholder="Genere" required>
+									<input id="CanGenre" name = "Genre" class="form-control" placeholder="Genere" required>
 								</div>
-								<div id="EnterAnno">
+								<div id="CanEnterAnno">
 									<label>Anno</label>
-									<input id="Year" name = "Year" class="form-control" placeholder="Anno" required>
+									<input id="CanYear" name = "Year" class="form-control" placeholder="Anno" required>
 								</div>
-								<div id="EnterFile">
+								<div id="CanEnterFile">
 									<label>File MP3</label>
-									<input onchange="checkifMP3()" type="file" id="File" name = "mp3" class="form-control" placeholder="File" required>
+									<input onchange="checkifMP3()" type="file" id="CanFile" name = "mp3" class="form-control" placeholder="File" required>
 								</div>
-								<div id="EnterAlbum">
+								<div id="CanEnterAlbum">
 									<label>Album</label>
-									<select id="Album" default="Seleziona Album">
+									<select id="CanAlbum">
 									</select>
 								</div>
 							</form>
 							<div class="add-btn">
 								<button class="btn btn-primary" name="Aggiungi" onclick="addCanzone()">Aggiungi</button>
-								<button class="btn btn-secondary" name="Annulla" onclick="hideAddCanzone()">Annulla</button>
+								<button class="btn btn-secondary" name="Annulla" onclick="showAddCanzone()">Annulla</button>
 							</div>
-							<div id="status"></div>
+							<div id="CanStatus" class="status"></div>
 						</div>
 					</div>
+					<br>
 				</div>
 			</div>
 			<!-- end: PAGE CONTENT-->

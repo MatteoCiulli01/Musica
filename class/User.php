@@ -124,7 +124,7 @@
 							<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate;width:100%;border-top:5px solid #696969;border-bottom:9px solid #696969">
 								<tbody><tr>
 								<td style="font-family:Verdana,sans-serif;font-size:14px;vertical-align:top">
-								<img src="../img/Musica.png" alt="Logo">
+								<img src="musica.ideeinbit.it/img/Musica.png" style="width:200px;height:50px;" alt="Logo">
 								</td>
 								</tr>
 							</tbody></table>
