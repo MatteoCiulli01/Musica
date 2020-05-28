@@ -263,7 +263,7 @@ function setUtente()
             }
             else
             {
-                document.getElementById("modulo").style.display = "none"; //nasconde il div di signup
+                document.getElementById("modulo_signup").style.display = "none"; //nasconde il div di signup
                 document.getElementById("status").style.display = "none"; //nasconde il div di stato del signup*/
                 document.getElementById("attEmail").style.display = "block"; //mostra il div di conferma 
             }
