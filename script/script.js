@@ -67,6 +67,27 @@ function output(array, classname, div)
                         break;
                 }
             }
+            else if(classname=="album")
+            {
+                switch(key)
+                {
+                    case "url_cover":
+                        var divObj = document.createElement("img");
+                        divObj.className="canzonealbumcover";
+                        var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
+                        divObj.setAttribute("src",urlalbumcover);
+                        obj.appendChild(divObj);
+                        break;
+                        
+                    default:
+                        var divObj	= document.createElement("div");
+                        var text = document.createTextNode(proprieta);
+                        divObj.appendChild(text);
+                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                        obj.appendChild(divObj);
+                        break;
+                }
+            }
             else
             {
                 var divObj	= document.createElement("div");
@@ -121,7 +142,7 @@ function output(array, classname, div)
             document.getElementById(div).appendChild(obj);
         }
 
-        if(window.location.pathname == "/indexAdmin.php")
+        if(window.location.pathname == "/indexAdmin.php" && classname.slice(0,3)=="can") //solo per le canzoni nella pagina indexAdmin.php
         {
             obj.appendChild(adminButtons(obj.id));
         }
@@ -138,12 +159,13 @@ function adminButtons(id)
     /*deleteBtn.className = "btn btn-info";*/
     deleteBtn.setAttribute("src","./img/deletebtn.png");
     deleteBtn.setAttribute("onclick", "deleteObject('" + id + "')");
+    /*
     var editBtn = document.createElement("img");
     editBtn.id="adminEdit_"+id; //esempio: adminEdit_canzone1
-    /*editBtn.className = "btn btn-info";*/
+    //editBtn.className = "btn btn-info";
     editBtn.setAttribute("src","./img/editbtn.png");
 
-    divButtons.appendChild(editBtn);
+    divButtons.appendChild(editBtn);*/
     divButtons.appendChild(deleteBtn);
 
     return divButtons;
@@ -204,6 +226,26 @@ function getCanzoni()
     {
         var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
         output(obj, "canzone", "contentCanzoni"); //output dell'oggetto canzone
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
+function getAlbum()
+{
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", 'api/apiAlbum.php', true); 
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+        output(obj, "album", "contentAlbum"); //output dell'oggetto canzone
     };
     //configuro la callback di errore
     xhr.onerror = function()
@@ -279,14 +321,19 @@ function setUtente()
     xhr.send(JSON.stringify(user));
 }
 
+var boolShowAddCanzone = false;
 function showAddCanzone()
 {
-    document.getElementById("addSongPanel").style.display = "block";
-}
-
-function hideAddCanzone()
-{
-    document.getElementById("addSongPanel").style.display = "none";
+    if(boolShowAddCanzone == false)
+    {
+        document.getElementById("addSongPanel").style.display = "block";
+        boolShowAddCanzone = true;
+    }
+    else
+    {
+        document.getElementById("addSongPanel").style.display = "none";
+        boolShowAddCanzone = false;
+    }
 }
 
 function addCanzone()

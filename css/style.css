@@ -177,8 +177,9 @@ img {
     }
 }
 
+
 /*Canzone e Artista*/
-.canzone, .artista
+.canzone, .artista, .album
 {
     width:50%;
     border-top:solid white 1px;
@@ -186,19 +187,19 @@ img {
     white-space: nowrap;
     
 }
-.canzone > div, .artista > div
+.canzone > div, .artista > div, .album > div
 {
     display: inline-block;
     padding:5px;
     font-size:16px;
     
 }
-.canzonetitolo
+.canzonetitolo, .albumnome, .albumNome_Artista
 {
     font-weight:bold;
     font-size:20px !important;
 }
-.canzoneanno:before
+.canzoneanno:before, .albumanno:before, .albumNome_Artista:before
 {
     content:"-\00a0";
 }
@@ -294,9 +295,10 @@ img {
 }
 .adminButtons > img
 {
-    width:20px;
-    height:20px;
+    width:50px;
+    height:50px;
     margin: 2px;
+    margin-bottom:45px;
 }
 .adminButtons > img:hover
 {
@@ -313,11 +315,13 @@ img {
 {
     cursor: pointer;
 }
-#addSongPanel
+
+#addSongPanel, #addAlbumPanel
 {
     width:500px;
     margin-left:0px;
     margin-top:20px;
+    display: none;
 }
 .add-btn
 {

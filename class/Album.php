@@ -59,13 +59,13 @@
 			}
         }
 
-        /*
+        
 		// getAll 
 		public function getAll()
 		{
 			try
 			{
-				$sql = "SELECT C.id_canzone, album.url_cover, C.titolo, C.genere, C.anno, A.nome AS Nome_Artista, album.nome AS Nome_Album, C.url_canzone FROM canzoni C INNER JOIN artisti A INNER JOIN canzone_artista CA INNER JOIN album ON C.id_canzone = CA.cod_canzone AND A.id_artista = CA.cod_artista AND CA.cod_artista = album.cod_artista";
+				$sql = "SELECT album.url_cover, album.nome, A.nome AS Nome_Artista, album.anno, album.genere FROM album INNER JOIN artisti A ON A.id_artista = album.cod_artista";
 				$stmt = $this-> db->prepare($sql);
 
 				$stmt->execute();
@@ -77,7 +77,8 @@
 				die("Query error! ".$e);
 			}
         }
-        
+		
+		/*
 		// getOne
 		public function one() {
 			try {

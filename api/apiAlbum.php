@@ -19,18 +19,17 @@
 			echo $js_encode;
             break;
 
-        /* DA IMPLEMENTARE
 		case 'GET':
 			$id = '';
 			if(isset($_GET['id']))
 			{
 				$id = $_GET['id'];
-				$song->_id = $id;
-				$data = $song->one(); //NON ANCORA IMPLEMENTATO
+				$album->_id = $id;
+				$data = $album->one(); //NON ANCORA IMPLEMENTATO
 			}
 			else
 			{
-				$data = $song->getAll();
+				$data = $album->getAll();
 			}
 			if(!empty($data))
 			{
@@ -42,7 +41,9 @@
 			}
 			header('Content-Type: application/json');
 			echo $js_encode;
-            break;
+			break;
+			
+		/* DA IMPLEMENTARE
             
 		case 'DELETE':
 			$id = $_GET['id'];
