@@ -564,3 +564,29 @@ iframe { border: 1px solid #bebebe; }
 	padding: 20px;
 	border-radius: 10px;
 }
+#error
+{
+	color:red;
+	text-align:center;
+}
+#codErr
+{
+	width: 30%;
+	margin: auto;
+	margin-top: 70px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+#check2
+{
+	width: 30%;
+	margin: auto;
+	margin-top: 70px;
+	background-color: #222a32;
+	color: white;
+	padding: 20px;
+	border-radius: 10px;
+}

@@ -57,7 +57,10 @@
 				die("Oh noes! There's an error in the query! ".$e);
 			}
 		}
-
+		public function error()
+		{
+			return false;
+		}
 		//insert
 		public function insert()
 		{
@@ -97,7 +100,7 @@
 
 					$mail->SetFrom("audioneer.service@gmail.com");
 					$mail->Host       = "smtp.gmail.com"; // SMTP server example
-					$mail->SMTPDebug  = 2;                     // enables SMTP debug information (for testing)
+					$mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
 					$mail->SMTPAuth   = true;                  // enable SMTP authentication
 					$mail->Port       = 587;                    // set the SMTP port for the GMAIL server
 					$mail->Username   = "audioneer.service@gmail.com"; // SMTP account username example

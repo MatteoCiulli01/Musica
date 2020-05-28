@@ -14,7 +14,7 @@
             <div class="page-header">
                 <a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>
             </div>
-			<div class="modulo">
+			<div class="modulo" id="modulo_signup">
 				<form method="match">
                     <h2>Log in</h2>
                     <div id="EnterUsername">
@@ -33,6 +33,18 @@
             </div>
             <div id="status">
                 <!--dove verranno visualizzate le risposte delle richieste xhr-->
+            </div>
+        </div>
+            <div id="codErr" style="display:none">
+                <p>Inserire il codice di conferma</p>
+                <input type="text" id="confCoderr" maxlength="6" size="6"></input>
+                <button class="btn btn-primary" type="button" name="conf" id="confErr" onclick="modCod()">Conferma</button>
+                <p id="error2"></p>
+            </div>
+            <div id="check2" style="display:none"> <!-- div che verrà mostrato a video solo dopo la registrazione per un certo periodo di tempo, serve per far capire all'utente che l'account è stato creato con successo-->
+                <p><h1>L'account è stato registrato correttamente con l'username</h1></p>
+                <p id="us2"></p><p>Verrai reindirizzato a una pagina di login tra :</p>
+                <p id="countdown"></p>
             </div>
     </body>
 </html>

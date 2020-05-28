@@ -11,7 +11,7 @@
 				<div class="page-header">
 					<a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>
 				</div>
-			<div class="modulo">
+			<div class="modulo" id="modulo_signup">
 				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
 						<label >Username</label>
@@ -55,6 +55,7 @@
                 <p>Registrazione eseguita, controlla la tua casella mail e inserirsci il codice di conferma:</p>
                 <input type="text" id="confCod" maxlength="6" size="6"></input>
                 <button class="btn btn-primary" type="button" name="conf" id="conf" onclick="controlloCod()">Conferma</button>
+                <p id="error"></p>
                 </div>
 
                 <div id="check" style="display:none"> <!-- div che verrà mostrato a video solo dopo la registrazione per un certo periodo di tempo, serve per far capire all'utente che l'account è stato creato con successo-->

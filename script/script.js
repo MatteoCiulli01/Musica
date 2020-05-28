@@ -263,7 +263,7 @@ function setUtente()
             }
             else
             {
-                document.getElementById("modulo").style.display = "none"; //nasconde il div di signup
+                document.getElementById("modulo_signup").style.display = "none"; //nasconde il div di signup
                 document.getElementById("status").style.display = "none"; //nasconde il div di stato del signup*/
                 document.getElementById("attEmail").style.display = "block"; //mostra il div di conferma 
             }
@@ -375,7 +375,7 @@ function getAlbumDropdown()
             option.setAttribute('value', obj[i].id_album);
             option.appendChild(document.createTextNode(obj[i].nomeAlbum+ " - " + obj[i].nomeArtista));
             select.appendChild(option);
-        }
+        } 
     };
     //configuro la callback di errore
     xhr.onerror = function()
@@ -385,7 +385,40 @@ function getAlbumDropdown()
     //invio la richiesta ajax
     xhr.send();
 }
-
+function modCod()
+{
+    var username = document.getElementById("Username").value;
+    var cod = document.getElementById("confCoderr").value;
+    let xhr = new XMLHttpRequest();
+    //asincrona
+    xhr.open("MATCH",'api/apiCod.php', true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        var ret = JSON.parse(xhr.response);
+        if(ret.result==true)
+        {
+            document.getElementById("codErr").style.display = "none";
+            document.getElementById("check2").style.display = "block";
+            document.getElementById("us2").innerHTML = document.getElementById("Username").value; //assegna al p us il valore dell'username inserito in modo di mostrarlo a video nel div check
+            countdown();//avvia la funzione countdown che dopo tot secondi reindizzerà alla pagina login
+        }
+        else if(ret.result==false)
+        {
+            document.getElementById("confCoderr").value = "";
+            document.getElementById("error2").innerHTML = "Codice errato";
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function(error) { 
+        alert('Errore');
+    };
+    //invio la richista ajax
+    xhr.send(JSON.stringify({
+    "username":username,
+    "confirm_code":cod   
+    }));
+}
 function matchCredenziali() //controllo della presenza dell'utente con il login
 {
     var username = document.getElementById("Username").value;
@@ -393,7 +426,7 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
 
     //viene creato l'utente per mandare i parametri all'API
     var user = {Username: username, Password: password};
-
+ 
     xhr = new XMLHttpRequest();
     xhr.open("MATCH", 'api/apiUser.php', true);
 
@@ -404,13 +437,21 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
             try
             {
                 var login = JSON.parse(xhr.response);
-                if(login.admin==1) //se l'admin ha effettuato il login
+                if(login.result != false)
                 {
-                    page("./indexAdmin.php");
+                    if(login.admin==1) //se l'admin ha effettuato il login
+                    {
+                        page("./indexAdmin.php");
+                    }
+                    else //per gli utenti normali
+                    {
+                        page("./indexUser.php");
+                    }
                 }
-                else //per gli utenti normali
+                else
                 {
-                    page("./indexUser.php");
+                    document.getElementById("modulo_signup").style.display = "none";
+                    document.getElementById("codErr").style.display = "block";
                 }
             }
             catch(e) //nel caso non sia trovato un utente
@@ -452,7 +493,6 @@ function DropdownFunction()
     || document.body.clientWidth;
     document.getElementById("Dropdown").style.left = w - document.getElementById("Dropdown").offsetWidth + "px";
 }
-
 function controlloCod()
 {
     var confirm_code = document.getElementById('confCod').value;
@@ -462,14 +502,18 @@ function controlloCod()
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
-        document.getElementById('attEmail').innerHTML = xhr.response;
         var ret = JSON.parse(xhr.response);
         if(ret.result==true)
         {
             document.getElementById("attEmail").style.display = "none";
-            document.getElementById("check").style.display = "block";
+            
             document.getElementById("us").innerHTML = document.getElementById("Username").value; //assegna al p us il valore dell'username inserito in modo di mostrarlo a video nel div check
             countdown();//avvia la funzione countdown che dopo tot secondi reindizzerà alla pagina login
+        }
+        else if(ret.result==false)
+        {
+            document.getElementById("confCod").value = "";
+            document.getElementById("error").innerHTML = "Codice errato";
         }
     };
     //configuro la callback di errore

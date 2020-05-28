@@ -40,7 +40,7 @@
             }
             else
             {
-                echo "maremma troia, e l'è sbagliato sto merda di codice";
+                return false;
             }
         }
     }

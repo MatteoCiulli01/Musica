@@ -72,7 +72,9 @@
                     {
                         if($check == 0)
                         {
-                            echo "Account non attivato";
+                            $data = $user->error();
+                            $response = array("result"=>$data);
+                            echo json_encode($response);
                         }
                         else
                         {
