@@ -57,6 +57,23 @@
 				die("Query error! ".$e);
 			}
 		}
+
+		public function getDropdown()
+		{
+			try
+			{
+				$sql = "SELECT id_artista, nome AS nomeArtista FROM artisti";
+				$stmt = $this-> db->prepare($sql);
+
+				$stmt->execute();
+				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+				return $result;
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+        }
 		
 		// getOne
 		public function one() {

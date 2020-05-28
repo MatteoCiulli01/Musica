@@ -326,6 +326,11 @@ function showAddCanzone()
 {
     if(boolShowAddCanzone == false)
     {
+        if(document.getElementById("CanAlbum").options.length==0)
+        {
+            getAlbumDropdown();
+        }
+        
         document.getElementById("addSongPanel").style.display = "block";
         boolShowAddCanzone = true;
     }
@@ -341,6 +346,11 @@ function showAddAlbum()
 {
     if(boolShowAddAlbum == false)
     {
+        if(document.getElementById("AlbArtist").options.length==0)
+        {
+            getArtistDropdown();
+        }
+
         document.getElementById("addAlbumPanel").style.display = "block";
         boolShowAddAlbum = true;
     }
@@ -359,6 +369,57 @@ function addCanzone()
     var path = document.getElementById("CanFile").value.replace(/^.*[\\\/]/, '');
     var album = document.getElementById("CanAlbum").value;
     var file = document.getElementById("CanFile").files[0];
+
+    var fr = new FileReader();
+
+    fr.onloadend = function(evt)
+    {
+        if(titolo == "" || genere == "" || anno == "" || file == "")
+        {
+            document.getElementById("status").innerHTML = "Inserisci tutti i dati";
+        }
+        else if(anno < 0 || anno > new Date().getFullYear() || isNaN(anno))
+        {
+            document.getElementById("status").innerHTML = "Inserisci un anno valido";
+        }
+        else
+        {
+            var song = {Titolo: titolo, Genere: genere, Anno: anno, Path: path, Album: album, File: btoa(evt.target.result)};
+
+            //preparo la richiesta ajax
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", 'api/apiSong.php', true);
+            //configuro la callback di risposta ok
+            xhr.onload = function()
+            {
+                if(xhr.status==200)
+                {
+                    document.getElementById("status").innerHTML = "";
+                    getCanzoni();
+                    showAddCanzone();
+                }
+            };
+            //configuro la callback di errore
+            xhr.onerror = function()
+            { 
+                alert('Errore');
+            };
+
+            //invio la richiesta ajax
+            xhr.send(JSON.stringify(song));
+        }
+    };
+    fr.readAsBinaryString(file);
+}
+
+function addAlbum()
+{
+    var nome = document.getElementById("AlbName").value;
+    var genere = document.getElementById("AlbGenre").value;
+    var anno = document.getElementById("AlbYear").value;
+    var artista = document.getElementById("AlbArtist").value;
+    var path = document.getElementById("AlbFile").value.replace(/^.*[\\\/]/, '');
+    var file = document.getElementById("AlbFile").files[0];
 
     var fr = new FileReader();
 
@@ -423,19 +484,19 @@ function checkifMP3()
 
 function checkifImage()
 {
-    var filePath = document.getElementById("File").value;
+    var filePath = document.getElementById("AlbFile").value;
 
-    var allowed = /(\.mp3)$/i;
+    var allowed = /(\.png|\.jpg|\.jpeg)$/i;
 
     if (!allowed.exec(filePath))
     { 
-        document.getElementById("status").innerHTML = "Inserisci un file con estensione .mp3";
-        document.getElementById("File").value = "";
+        document.getElementById("AlbStatus").innerHTML = "Inserisci un'immagine con estensione .png, .jpg o .jpeg";
+        document.getElementById("AlbFile").value = "";
         return false;
     }
     else
     {
-        document.getElementById("status").innerHTML = "";
+        document.getElementById("AlbStatus").innerHTML = "";
         return true;
     }
 }
@@ -449,12 +510,39 @@ function getAlbumDropdown()
     xhr.onload = function()
     {
         var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
-        var select = document.getElementById("Album");
+        var select = document.getElementById("CanAlbum");
         for (i=0; i < obj.length; i++)
         {
             option = document.createElement('option');
             option.setAttribute('value', obj[i].id_album);
             option.appendChild(document.createTextNode(obj[i].nomeAlbum+ " - " + obj[i].nomeArtista));
+            select.appendChild(option);
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
+function getArtistDropdown()
+{
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETDROPDOWN", 'api/apiArtist.php', true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+        var select = document.getElementById("AlbArtist");
+        for (i=0; i < obj.length; i++)
+        {
+            option = document.createElement('option');
+            option.setAttribute('value', obj[i].id_artista);
+            option.appendChild(document.createTextNode(obj[i].nomeArtista));
             select.appendChild(option);
         }
     };

@@ -78,7 +78,7 @@ img {
 {
 	margin-bottom: 20px;
 }
-#status
+.status
 {
 	color:red;
 	text-align:center;
@@ -323,6 +323,12 @@ img {
     margin-top:20px;
     display: none;
 }
+
+#AlbEnterNome, #CanEnterAlbum
+{
+    margin-top:20px;
+}
+
 .add-btn
 {
     margin-top: 10px;

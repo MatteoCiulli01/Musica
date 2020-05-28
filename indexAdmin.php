@@ -16,7 +16,7 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getArtisti(); getCanzoni(); getAlbumDropdown(); getAlbum();" class="mainbody">
+	<body onload="getArtisti(); getCanzoni(); getAlbum();" class="mainbody">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
@@ -79,8 +79,8 @@
 									<input onchange="checkifImage()" type="file" id="AlbFile" name = "image" class="form-control" placeholder="Cover" required>
 								</div>
 								<div id="AlbEnterNome">
-									<label>Album</label>
-									<select id="Album" default="Seleziona Album">
+									<label>Artista</label>
+									<select id="AlbArtist">
 									</select>
 								</div>
 							</form>
@@ -88,7 +88,7 @@
 								<button class="btn btn-primary" name="Aggiungi" onclick="addAlbum()">Aggiungi</button>
 								<button class="btn btn-secondary" name="Annulla" onclick="showAddAlbum()">Annulla</button>
 							</div>
-							<div id="status"></div>
+							<div id="AlbStatus" class="status"></div>
 						</div>
 					</div>
 					<br>
@@ -117,7 +117,7 @@
 								</div>
 								<div id="CanEnterAlbum">
 									<label>Album</label>
-									<select id="CanAlbum" default="Seleziona Album">
+									<select id="CanAlbum">
 									</select>
 								</div>
 							</form>
@@ -125,7 +125,7 @@
 								<button class="btn btn-primary" name="Aggiungi" onclick="addCanzone()">Aggiungi</button>
 								<button class="btn btn-secondary" name="Annulla" onclick="showAddCanzone()">Annulla</button>
 							</div>
-							<div id="status"></div>
+							<div id="CanStatus" class="status"></div>
 						</div>
 					</div>
 					<br>
