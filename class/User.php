@@ -121,7 +121,7 @@
 						
 						<tbody><tr>
 							<td width="100%" style="font-family:Verdana,sans-serif;font-size:14px;vertical-align:top;box-sizing:border-box;padding:0px">
-							<table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate;width:100%;border-top:5px solid #696969;border-bottom:9px solid #696969">
+							<table border="0" cellpadding="5" cellspacing="0" width="100%" style="border-collapse:separate;width:100%;border-top:5px solid #696969;border-bottom:9px solid #696969">
 								<tbody><tr>
 								<td style="font-family:Verdana,sans-serif;font-size:14px;vertical-align:top">
 								<img src="musica.ideeinbit.it/img/Musica.png" style="width:200px;height:50px;" alt="Logo">
@@ -132,7 +132,7 @@
 						</tr>
 						
 						</tbody></table>
-						<table style="border-collapse:separate;background:#fff;border-radius:0px;width:100%;margin-bottom:30px">
+						<table style="border-collapse:separate;background:#fff;border-radius:0px;width:100%;margin-bottom:30px;margin-top:10px">
 						
 						<tbody><tr>
 							<td style="font-family:Verdana,sans-serif;font-size:14px;vertical-align:top;box-sizing:border-box;padding:20px">

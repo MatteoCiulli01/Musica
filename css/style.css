@@ -69,7 +69,7 @@ img {
 	padding: 20px;
 	border-radius: 10px;
 }
-#us
+#us, #us2
 {
 	color: green;
 	font-size: 20px;
@@ -388,10 +388,11 @@ img {
 	padding: 20px;
 	border-radius: 10px;
 }
-#error
+#error, #error2
 {
 	color:red;
-	text-align:center;
+    text-align:center;
+    margin-top: 20px;
 }
 #codErr
 {
@@ -403,7 +404,6 @@ img {
 	padding: 20px;
 	border-radius: 10px;
 }
-
 #check2
 {
 	width: 30%;
@@ -413,4 +413,12 @@ img {
 	color: white;
 	padding: 20px;
 	border-radius: 10px;
+}
+#confErr, #conf
+{
+    float: right;
+}
+#confCoderr, #confCode
+{
+    margin-top: 4px;
 }

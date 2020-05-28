@@ -705,7 +705,8 @@ function controlloCod()
         if(ret.result==true)
         {
             document.getElementById("attEmail").style.display = "none";
-            
+            document.getElementById("check").style.display = "block";
+
             document.getElementById("us").innerHTML = document.getElementById("Username").value; //assegna al p us il valore dell'username inserito in modo di mostrarlo a video nel div check
             countdown();//avvia la funzione countdown che dopo tot secondi reindizzerà alla pagina login
         }

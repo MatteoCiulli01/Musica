@@ -37,10 +37,13 @@
         </div>
             <div id="codErr" style="display:none">
                 <p>Inserire il codice di conferma</p>
-                <input type="text" id="confCoderr" maxlength="6" size="6"></input>
-                <button class="btn btn-primary" type="button" name="conf" id="confErr" onclick="modCod()">Conferma</button>
+                <div class="DivErr">
+                    <input type="text" id="confCoderr" maxlength="6" size="6"></input>
+                    <button class="btn btn-primary" type="button" name="conf" id="confErr" onclick="modCod()">Conferma</button>
+                </div>
                 <p id="error2"></p>
             </div>
+
             <div id="check2" style="display:none"> <!-- div che verrà mostrato a video solo dopo la registrazione per un certo periodo di tempo, serve per far capire all'utente che l'account è stato creato con successo-->
                 <p><h1>L'account è stato registrato correttamente con l'username</h1></p>
                 <p id="us2"></p><p>Verrai reindirizzato a una pagina di login tra :</p>
