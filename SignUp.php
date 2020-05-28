@@ -11,7 +11,7 @@
 				<div class="page-header">
 					<a href="index.html"><img src="img/Musica.png" class="TitleIcon"></a>
 				</div>
-			<div class="modulo">
+			<div class="modulo" id="modulo_signup">
 				<form id="signup" method="post">
                         <h2>Modulo di iscrizione</h2>
 						<label >Username</label>
@@ -32,7 +32,7 @@
                         
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="terms" required>
-                            <label class="form-check-label" for="terms"><small>Accetto <a href="index.html"><b>Termini e condizioni</b></a> e <a href="index.html"><b>Informativa sulla privacy Musica</b></a>.</small></label>
+                            <label class="form-check-label" for="terms"><small>Accetto <a href="index.html"><b>Termini e condizioni</b></a> e <a href="index.html"><b>Informativa sulla privacy Audioneer</b></a>.</small></label>
                         </div></br>
                         
                         <div class="g-recaptcha" data-sitekey="6LfdnewUAAAAAOHpq6TWzzJ5Q5wzPsYCHubWXmj8"></div></br>
