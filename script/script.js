@@ -336,14 +336,29 @@ function showAddCanzone()
     }
 }
 
+var boolShowAddAlbum = false;
+function showAddAlbum()
+{
+    if(boolShowAddAlbum == false)
+    {
+        document.getElementById("addAlbumPanel").style.display = "block";
+        boolShowAddAlbum = true;
+    }
+    else
+    {
+        document.getElementById("addAlbumPanel").style.display = "none";
+        boolShowAddAlbum = false;
+    }
+}
+
 function addCanzone()
 {
-    var titolo = document.getElementById("Title").value;
-    var genere = document.getElementById("Genre").value;
-    var anno = document.getElementById("Year").value;
-    var path = document.getElementById("File").value.replace(/^.*[\\\/]/, '');
-    var album = document.getElementById("Album").value;
-    var file = document.getElementById("File").files[0];
+    var titolo = document.getElementById("CanTitle").value;
+    var genere = document.getElementById("CanGenre").value;
+    var anno = document.getElementById("CanYear").value;
+    var path = document.getElementById("CanFile").value.replace(/^.*[\\\/]/, '');
+    var album = document.getElementById("CanAlbum").value;
+    var file = document.getElementById("CanFile").files[0];
 
     var fr = new FileReader();
 
@@ -371,7 +386,7 @@ function addCanzone()
                 {
                     document.getElementById("status").innerHTML = "";
                     getCanzoni();
-                    //hideAddCanzone();
+                    showAddCanzone();
                 }
             };
             //configuro la callback di errore
@@ -388,6 +403,25 @@ function addCanzone()
 }
 
 function checkifMP3()
+{
+    var filePath = document.getElementById("CanFile").value;
+
+    var allowed = /(\.mp3)$/i;
+
+    if (!allowed.exec(filePath))
+    { 
+        document.getElementById("CanStatus").innerHTML = "Inserisci un file con estensione .mp3";
+        document.getElementById("CanFile").value = "";
+        return false;
+    }
+    else
+    {
+        document.getElementById("CanStatus").innerHTML = "";
+        return true;
+    }
+}
+
+function checkifImage()
 {
     var filePath = document.getElementById("File").value;
 
