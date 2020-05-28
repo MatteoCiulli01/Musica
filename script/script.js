@@ -71,6 +71,10 @@ function output(array, classname, div)
             {
                 switch(key)
                 {
+                    case "id_album":
+                        obj.id=classname.slice(0,3)+proprieta; //esempio classname=album e id=1 --> alb1
+                        break;
+
                     case "url_cover":
                         var divObj = document.createElement("img");
                         divObj.className="canzonealbumcover";
@@ -142,7 +146,7 @@ function output(array, classname, div)
             document.getElementById(div).appendChild(obj);
         }
 
-        if(window.location.pathname == "/indexAdmin.php" && classname.slice(0,3)=="can") //solo per le canzoni nella pagina indexAdmin.php
+        if(window.location.pathname == "/indexAdmin.php" && (classname.slice(0,3)=="can" || classname.slice(0,3)=="alb")) //solo per le canzoni nella pagina indexAdmin.php
         {
             obj.appendChild(adminButtons(obj.id));
         }
@@ -173,11 +177,13 @@ function adminButtons(id)
 
 function deleteObject(objName)
 {
-    if(objName.slice(0,3)=="can")
+    let xhr;
+    switch(objName.slice(0,3))
     {
-        var id = objName.slice(3);
+    case "can":
+        var id = objName.slice(3); //esempio: objName= can56 -> id= 56
         //preparo la richiesta ajax
-        let xhr = new XMLHttpRequest();
+        xhr = new XMLHttpRequest();
         xhr.open("DELETE", 'api/apiSong.php?id='+ id, true);
         //configuro la callback di risposta ok
         xhr.onload = function()
@@ -192,6 +198,31 @@ function deleteObject(objName)
         };
         //invio la richiesta ajax
         xhr.send();
+        break;
+    
+    case "alb":
+        var id = objName.slice(3);
+        //preparo la richiesta ajax
+        xhr = new XMLHttpRequest();
+        xhr.open("DELETE", 'api/apiAlbum.php?id='+ id, true);
+        //configuro la callback di risposta ok
+        xhr.onload = function()
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            getAlbum();
+            getCanzoni();
+        };
+        //configuro la callback di errore
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        //invio la richiesta ajax
+        xhr.send();
+        break;
+
+    default:
+        break;
     }
 }
 
@@ -366,23 +397,23 @@ function addCanzone()
     var titolo = document.getElementById("CanTitle").value;
     var genere = document.getElementById("CanGenre").value;
     var anno = document.getElementById("CanYear").value;
-    var path = document.getElementById("CanFile").value.replace(/^.*[\\\/]/, '');
     var album = document.getElementById("CanAlbum").value;
+    var path = document.getElementById("CanFile").value.replace(/^.*[\\\/]/, '');
     var file = document.getElementById("CanFile").files[0];
 
     var fr = new FileReader();
 
-    fr.onloadend = function(evt)
+    if(titolo == "" || genere == "" || anno == "" || album == "" || path == "")
     {
-        if(titolo == "" || genere == "" || anno == "" || file == "")
-        {
-            document.getElementById("status").innerHTML = "Inserisci tutti i dati";
-        }
-        else if(anno < 0 || anno > new Date().getFullYear() || isNaN(anno))
-        {
-            document.getElementById("status").innerHTML = "Inserisci un anno valido";
-        }
-        else
+        document.getElementById("CanStatus").innerHTML = "Inserisci tutti i dati";
+    }
+    else if(anno < 0 || anno > new Date().getFullYear() || isNaN(anno))
+    {
+        document.getElementById("CanStatus").innerHTML = "Inserisci un anno valido";
+    }
+    else
+    {
+        fr.onloadend = function(evt)
         {
             var song = {Titolo: titolo, Genere: genere, Anno: anno, Path: path, Album: album, File: btoa(evt.target.result)};
 
@@ -394,7 +425,7 @@ function addCanzone()
             {
                 if(xhr.status==200)
                 {
-                    document.getElementById("status").innerHTML = "";
+                    document.getElementById("CanStatus").innerHTML = "";
                     getCanzoni();
                     showAddCanzone();
                 }
@@ -407,9 +438,9 @@ function addCanzone()
 
             //invio la richiesta ajax
             xhr.send(JSON.stringify(song));
-        }
-    };
-    fr.readAsBinaryString(file);
+        };
+        fr.readAsBinaryString(file);
+    }
 }
 
 function addAlbum()
@@ -423,31 +454,31 @@ function addAlbum()
 
     var fr = new FileReader();
 
-    fr.onloadend = function(evt)
+    if(nome == "" || genere == "" || anno == "" || artista == "" || path == "")
     {
-        if(titolo == "" || genere == "" || anno == "" || file == "")
+        document.getElementById("AlbStatus").innerHTML = "Inserisci tutti i dati";
+    }
+    else if(anno < 0 || anno > new Date().getFullYear() || isNaN(anno))
+    {
+        document.getElementById("AlbStatus").innerHTML = "Inserisci un anno valido";
+    }
+    else
+    {
+        fr.onloadend = function(evt)
         {
-            document.getElementById("status").innerHTML = "Inserisci tutti i dati";
-        }
-        else if(anno < 0 || anno > new Date().getFullYear() || isNaN(anno))
-        {
-            document.getElementById("status").innerHTML = "Inserisci un anno valido";
-        }
-        else
-        {
-            var song = {Titolo: titolo, Genere: genere, Anno: anno, Path: path, Album: album, File: btoa(evt.target.result)};
+            var song = {Nome: nome, Genere: genere, Anno: anno, Artista: artista, Path: path, File: btoa(evt.target.result)};
 
             //preparo la richiesta ajax
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", 'api/apiSong.php', true);
+            xhr.open("POST", 'api/apiAlbum.php', true);
             //configuro la callback di risposta ok
             xhr.onload = function()
             {
                 if(xhr.status==200)
                 {
-                    document.getElementById("status").innerHTML = "";
-                    getCanzoni();
-                    showAddCanzone();
+                    document.getElementById("AlbStatus").innerHTML = "";
+                    getAlbum();
+                    showAddAlbum();
                 }
             };
             //configuro la callback di errore
@@ -458,9 +489,9 @@ function addAlbum()
 
             //invio la richiesta ajax
             xhr.send(JSON.stringify(song));
-        }
-    };
-    fr.readAsBinaryString(file);
+        };
+        fr.readAsBinaryString(file);
+    }
 }
 
 function checkifMP3()
@@ -627,7 +658,7 @@ function controlloCod()
     var confirm_code = document.getElementById('confCod').value;
     var username = document.getElementById("Username").value;
     let xhr = new XMLHttpRequest();
-    xhr.open("MATCH", 'api/apiCod.php', true); 
+    xhr.open("MATCH", 'api/apiCod.php', true);
     //configuro la callback di risposta ok
     xhr.onload = function()
     {

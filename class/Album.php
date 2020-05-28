@@ -16,18 +16,18 @@
 			$this->db = $this->db->returnConnection();
 		}
 		
-		/*
 		//insert
 		public function insert()
 		{
 			try
 			{
-				$sql = 'INSERT INTO student (name, surname, sidi_code, tax_code)  VALUES (:name, :surname, :sidi_code, :tax_code)';
+				$sql = 'INSERT INTO album (nome, genere, anno, url_cover, cod_artista)  VALUES (:nome, :genere, :anno, :url_cover, :cod_artista)';
 				$data = [
-					'name' => $this->_name,
-					'surname' => $this->_surname,
-					'sidi_code' => $this->_sidiCode,
-					'tax_code' => $this->_taxCode
+					'nome' => $this->_nome,
+					'genere' => $this->_genere,
+					'anno' => $this->_anno,
+					'url_cover' => $this->_url_cover,
+					'cod_artista' => $this->_cod_artista
 				];
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
@@ -40,7 +40,6 @@
 			}
 
 		}
-		*/
 
         public function getDropdown()
 		{
@@ -65,7 +64,7 @@
 		{
 			try
 			{
-				$sql = "SELECT album.url_cover, album.nome, A.nome AS Nome_Artista, album.anno, album.genere FROM album INNER JOIN artisti A ON A.id_artista = album.cod_artista";
+				$sql = "SELECT album.id_album, album.url_cover, album.nome, A.nome AS Nome_Artista, album.anno, album.genere FROM album INNER JOIN artisti A ON A.id_artista = album.cod_artista";
 				$stmt = $this-> db->prepare($sql);
 
 				$stmt->execute();
@@ -76,7 +75,45 @@
 			{
 				die("Query error! ".$e);
 			}
-        }
+		}
+		
+		public function delete()
+		{
+			try
+			{
+				$status = 0;
+
+				$sql = "DELETE FROM canzone_artista WHERE cod_canzone IN (SELECT id_canzone FROM canzoni WHERE cod_album = :id)";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id' => $this->_id
+				];
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+
+				$sql = "DELETE FROM album WHERE id_album = :id";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id' => $this->_id
+				];
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+
+				$sql = "DELETE FROM canzoni WHERE cod_album = :id";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id' => $this->_id
+				];
+				$stmt->execute($data);
+				$status += $stmt->rowCount();
+
+				return $status;
+			}
+			catch (Exception $e)
+			{
+				die("Oh noes! There's an error in the query! ".$e);
+			}
+		}
 		
 		/*
 		// getOne
@@ -91,36 +128,6 @@
 				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
 				return $result;
 			} catch (Exception $e) {
-				die("Oh noes! There's an error in the query! ".$e);
-			}
-		}
-
-		public function delete()
-		{
-			try
-			{
-				$status = 0;
-
-				$sql = "DELETE FROM canzone_artista WHERE cod_canzone = :id";
-				$stmt = $this->db->prepare($sql);
-				$data = [
-					'id' => $this->_id
-				];
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-
-				$sql = "DELETE FROM canzoni WHERE id_canzone = :id";
-				$stmt = $this->db->prepare($sql);
-				$data = [
-					'id' => $this->_id
-				];
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-
-				return $status;
-			}
-			catch (Exception $e)
-			{
 				die("Oh noes! There's an error in the query! ".$e);
 			}
 		}

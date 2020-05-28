@@ -15,7 +15,7 @@
             echo json_encode($response);
             break;
             default:
-                header("HTTP/1.0 405 Method Not Allowed in apiUser.php");
+                header("HTTP/1.0 405 Method Not Allowed in apiCod.php");
                 break;
         }
     ?>
