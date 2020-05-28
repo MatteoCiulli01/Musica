@@ -38,13 +38,13 @@
                         <div class="g-recaptcha" data-sitekey="6LfdnewUAAAAAOHpq6TWzzJ5Q5wzPsYCHubWXmj8"></div></br>
                 </form>
                 <div class="signup-btn">
-                    <button type="submit" class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
+                    <button id="signupBtn" type="submit" class="btn btn-primary" name="Conferma" onclick="setUtente()">Conferma</button>
                     <button type="reset" class="btn" name="Annulla" onclick="history.back()">Annulla</button>
                 </div>
 
                 </br></br><div><p align="center">Hai già un account? <a href="LogIn.php"><b>Esegui il log in</b></a></p></div>
         
-                <div id="status">
+                <div id="SignUpStatus" class="status">
                 <!--dove verranno visualizzate le risposte delle richieste xhr-->
                 </div>
 

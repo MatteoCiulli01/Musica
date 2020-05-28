@@ -332,12 +332,12 @@ function setUtente()
         {
             if(isNaN(parseFloat(xhr.response))) //se la risposta non è un numero (l'account è già esistente o non sono stati inseriti tutti i dati)
             {
-                document.getElementById("status").innerHTML = xhr.response;
+                document.getElementById("SignUpStatus").innerHTML = xhr.response;
             }
             else
             {
                 document.getElementById("modulo_signup").style.display = "none"; //nasconde il div di signup
-                document.getElementById("status").style.display = "none"; //nasconde il div di stato del signup*/
+                document.getElementById("SignUpStatus").style.display = "none"; //nasconde il div di stato del signup*/
                 document.getElementById("attEmail").style.display = "block"; //mostra il div di conferma 
             }
         }
@@ -615,7 +615,7 @@ function matchCredenziali() //controllo della presenza dell'utente con il login
             }
             catch(e) //nel caso non sia trovato un utente
             {
-                document.getElementById("status").innerHTML=xhr.response;
+                document.getElementById("LogInStatus").innerHTML=xhr.response;
             }
         }
     };
@@ -683,3 +683,29 @@ function controlloCod()
         "username":username 
         }));
 }
+
+// Execute a function when the user releases a key on the keyboard
+document.addEventListener("keyup", function(event)
+{
+    var inputLogin = document.getElementById("Username");
+    var inputPass = document.getElementById("Password");
+
+    if(event.target == inputLogin || event.target == inputPass)
+    {
+        if (event.keyCode == 13)
+        {
+            if(window.location.pathname == "/SignUp.php")
+            {
+                document.getElementById("signupBtn").click();
+            }
+            else if(window.location.pathname == "/LogIn.php")
+            {
+                document.getElementById("login").click();
+            }
+        }
+    }
+    else
+    {
+        return;
+    }
+});

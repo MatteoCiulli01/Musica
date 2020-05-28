@@ -215,6 +215,16 @@ img {
     margin:25px;
 }
 
+.canzoneNome_Artista, .canzoneNome_Album
+{
+    font-weight: bold;
+}
+
+.canzonegenere, .canzoneanno, .canzoneNome_Artista, .canzoneNome_Album
+{
+    color:#A9A9A9;
+}
+
 /*Dropdown e User*/
 .dropdown-content 
 {
