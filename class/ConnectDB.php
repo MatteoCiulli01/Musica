@@ -3,7 +3,7 @@
 // Database Connection
 class DBConnection
 {
-	private $_dbHostname = "musica.ideeinbit.it";
+	private $_dbHostname = "localhost:3306";
 	private $_dbName = "ideeinbi_musica";
 	private $_dbUsername = "ideei_musica";
 	private $_dbPassword = "musica";

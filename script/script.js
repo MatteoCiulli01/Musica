@@ -558,6 +558,36 @@ function getAlbumDropdown()
     //invio la richiesta ajax
     xhr.send();
 }
+
+function getLezioni()
+{
+    var user = document.getElementById("username").innerHTML;
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETUSER", 'api/apiLesson.php?user='+user, true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        console.log(xhr.response);
+        if(xhr.response=="")
+        {
+            document.getElementById("contentLezioni").innerHTML = "Non hai lezioni pianificate.";
+        }
+        else
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            output(obj, "lezione", "contentLezioni"); //output dell'oggetto lezione
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
 function modCod()
 {
     var username = document.getElementById("Username").value;
@@ -592,6 +622,7 @@ function modCod()
     "confirm_code":cod   
     }));
 }
+
 function getArtistDropdown()
 {
     //preparo la richiesta ajax
@@ -618,6 +649,7 @@ function getArtistDropdown()
     //invio la richiesta ajax
     xhr.send();
 }
+
 function matchCredenziali() //controllo della presenza dell'utente con il login
 {
     var username = document.getElementById("Username").value;

@@ -16,18 +16,17 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getCanzoni();" class="mainbody">
+	<body onload="getLezioni();" class="mainbody">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
 					<a href="./indexUser.php"><img src="img/Musica.png" class="TitleIcon"></a>
-					<a href="./pageLezioni.php" class="link linkLezioni"><img class="dropbtn" src="img/lesson.png">Lezioni</a>
 					<div class="User">
 						<?php
 							if(isset($_SESSION["user"])) //nel caso l'utente abbia effettuato il login
 							{
-								echo '<div class="usernameDisplay">' . $_SESSION["user"] . '</div>';
+								echo '<div id="username" class="usernameDisplay">' . $_SESSION["user"] . '</div>';
 							}
 							else //nel caso l'utente non sia loggato
 							{
@@ -54,11 +53,8 @@
 			<!-- start: PAGE CONTENT-->
 			<div class="page-content-wrapper">
 				<div class="page-content">
-					<!--<h2>Artisti</h2>
-					<div id="contentArtisti"></div>
-					<br>-->
-					<h2>Canzoni</h2>
-					<div id="contentCanzoni"></div>
+					<h2>Lezioni</h2>
+					<div id="contentLezioni"></div>
 				</div>
 			</div>
 			<!-- end: PAGE CONTENT-->

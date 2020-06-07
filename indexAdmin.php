@@ -21,7 +21,7 @@
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
-					<a href=""><img src="img/Musica.png" class="TitleIcon"></a>
+					<a href="./indexAdmin.php"><img src="img/Musica.png" class="TitleIcon"></a>
 					<div class="User">
 						<input onclick="DropdownFunction()" class="dropbtn adminLogo" type="image" src="img/admin.png"></input>
 						<div id="Dropdown" class="dropdown-content">
