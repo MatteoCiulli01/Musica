@@ -55,6 +55,29 @@
 				<div class="page-content">
 					<h2>Lezioni</h2>
 					<div id="contentLezioni"></div>
+					<img class="addBtn" src="./img/addbtn.png" onclick="showAddLezione();"></img>
+					<div id="addLessonPanel" class="modulo">
+						<form method="post">
+							<h2>Pianifica lezione</h2>
+							<div id="LezEnterDataOra">
+								<label>Data e ora</label>
+								<input onchange="checkifLessonAvailable()" type="datetime-local" id="LezDate" name = "datetime" class="form-control" placeholder="Data e ora" required>
+							</div>
+							<div id="LezEnterInsegnante">
+								<label>Insegnante</label>
+								<select id="LezInsegnante" onchange="getInsegnantiMap(); checkifLessonAvailable()">
+								</select>
+							</div>
+							<div id="LezLuogo">
+								<iframe id="LezMappa" src="" width="100%" height="350px" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+							</div>
+						</form>
+						<div class="add-btn">
+							<button class="btn btn-primary" name="Aggiungi" onclick="addLezione()">Aggiungi</button>
+							<button class="btn btn-secondary" name="Annulla" onclick="showAddLezione()">Annulla</button>
+						</div>
+						<div id="LezStatus" class="status"></div>
+					</div>
 				</div>
 			</div>
 			<!-- end: PAGE CONTENT-->

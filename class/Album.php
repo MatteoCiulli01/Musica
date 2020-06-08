@@ -46,7 +46,7 @@
 			try
 			{
 				$sql = "SELECT album.id_album, album.nome AS nomeAlbum, artisti.nome AS nomeArtista FROM album INNER JOIN artisti ON album.cod_artista = artisti.id_artista";
-				$stmt = $this-> db->prepare($sql);
+				$stmt = $this->db->prepare($sql);
 
 				$stmt->execute();
 				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);

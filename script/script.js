@@ -92,6 +92,35 @@ function output(array, classname, div)
                         break;
                 }
             }
+            else if(classname=="lezione")
+            {
+                switch(key)
+                {
+                    case "id_lezione":
+                        obj.id=classname.slice(0,3)+proprieta;
+                        break;
+
+                    case "data_ora":
+                        var br = document.createElement("br");
+                        var divObj	= document.createElement("div");
+                        var text = document.createTextNode(proprieta);
+                        divObj.appendChild(text);
+                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                        obj.appendChild(divObj);
+                        obj.appendChild(br);
+                        break;
+                        
+                    default:
+                        var divObj	= document.createElement("div");
+                        var text = document.createTextNode(proprieta);
+                        divObj.appendChild(text);
+                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                        obj.appendChild(divObj);
+                        break;
+                }
+                obj.style.fontWeight = "bold";
+                obj.style.fontSize = "22px";
+            }
             else
             {
                 var divObj	= document.createElement("div");
@@ -146,9 +175,13 @@ function output(array, classname, div)
             document.getElementById(div).appendChild(obj);
         }
 
-        if(window.location.pathname == "/indexAdmin.php" && (classname.slice(0,3)=="can" || classname.slice(0,3)=="alb")) //solo per le canzoni nella pagina indexAdmin.php
+        if(window.location.pathname == "/indexAdmin.php" && (classname.slice(0,3)=="can" || classname.slice(0,3)=="alb")) //solo per le canzoni nella pagina indexAdmin.php e le lezioni nella pagina pageLezioni.php
         {
             obj.appendChild(adminButtons(obj.id));
+        }
+        if(classname == "lezione")
+        {
+            obj.appendChild(lessonDeleteButtons(obj.id));
         }
         i++;
     }
@@ -170,6 +203,19 @@ function adminButtons(id)
     editBtn.setAttribute("src","./img/editbtn.png");
 
     divButtons.appendChild(editBtn);*/
+    divButtons.appendChild(deleteBtn);
+
+    return divButtons;
+}
+
+function lessonDeleteButtons(id)
+{
+    var divButtons = document.createElement("div");
+    divButtons.className = "lessonDeleteButtons";
+    var deleteBtn = document.createElement("img");
+    deleteBtn.id="lessonDelete_"+id; //esempio: adminDelete_can1
+    deleteBtn.setAttribute("src","./img/deletebtn.png");
+    deleteBtn.setAttribute("onclick", "deleteObject('" + id + "')");
     divButtons.appendChild(deleteBtn);
 
     return divButtons;
@@ -211,6 +257,26 @@ function deleteObject(objName)
             var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
             getAlbum();
             getCanzoni();
+        };
+        //configuro la callback di errore
+        xhr.onerror = function()
+        { 
+            alert('Errore');
+        };
+        //invio la richiesta ajax
+        xhr.send();
+        break;
+
+    case "lez":
+        var id = objName.slice(3);
+        //preparo la richiesta ajax
+        xhr = new XMLHttpRequest();
+        xhr.open("DELETE", 'api/apiLesson.php?id='+ id, true);
+        //configuro la callback di risposta ok
+        xhr.onload = function()
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            getLezioni();
         };
         //configuro la callback di errore
         xhr.onerror = function()
@@ -568,10 +634,11 @@ function getLezioni()
     //configuro la callback di risposta ok
     xhr.onload = function()
     {
-        console.log(xhr.response);
         if(xhr.response=="")
         {
             document.getElementById("contentLezioni").innerHTML = "Non hai lezioni pianificate.";
+            document.getElementById("contentLezioni").style.fontWeight = "bold";
+            document.getElementById("contentLezioni").style.fontSize = "23px";
         }
         else
         {
@@ -586,6 +653,178 @@ function getLezioni()
     };
     //invio la richiesta ajax
     xhr.send();
+}
+
+let boolShowAddLezione = false;
+function showAddLezione()
+{
+    if(boolShowAddLezione == false)
+    {
+        if(document.getElementById("LezInsegnante").options.length==0)
+        {
+            getInsegnantiDropdown();
+        }
+
+        document.getElementById("addLessonPanel").style.display = "block";
+        boolShowAddLezione = true;
+    }
+    else
+    {
+        document.getElementById("addLessonPanel").style.display = "none";
+        boolShowAddLezione = false;
+    }
+}
+
+function getInsegnantiDropdown()
+{
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETDROPINS", 'api/apiLesson.php', true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        if(xhr.response!="")
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            var select = document.getElementById("LezInsegnante");
+            for (i=0; i < obj.length; i++)
+            {
+                option = document.createElement('option');
+                option.setAttribute('value', obj[i].id_insegnante);
+                option.appendChild(document.createTextNode(obj[i].nomeInsegnante + " " + obj[i].cognomeInsegnante));
+                select.appendChild(option);
+            }
+
+            getInsegnantiMap();
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+
+    var today = new Date();
+
+    var arrayToday = [new String(today.getMonth()+1), new String(today.getDate()), new String(today.getHours()), new String(today.getMinutes())];
+    
+    for(var i = 0; i<arrayToday.length;i++)
+    {
+        if(arrayToday[i].length==1)
+        {
+            arrayToday[i] = "0"+ arrayToday[i]; //vengono formattati tutti i dati per essere utilizzati nel javascript
+        }
+    }
+
+    var date = today.getFullYear()+'-'+arrayToday[0]+'-'+arrayToday[1]+'T'+arrayToday[2]+':'+arrayToday[3]; //esempio 2020-06-08T16:20
+    document.getElementById("LezDate").setAttribute("value", date);
+    document.getElementById("LezDate").setAttribute("min", date);
+}
+
+function getInsegnantiMap()
+{
+    var idInsegnante = document.getElementById("LezInsegnante").value;
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETINSMAPPA", 'api/apiLesson.php?ins='+idInsegnante, true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        if(xhr.response!="")
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            document.getElementById("LezMappa").setAttribute("src", obj.url_mappa);
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
+let flagAvailable = false;
+function checkifLessonAvailable()
+{
+    var idInsegnante = document.getElementById("LezInsegnante").value;
+    var date = document.getElementById("LezDate").value;
+
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("CHECKINS", 'api/apiLesson.php?ins='+idInsegnante+"&date="+date, true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        if(xhr.response!="")
+        {
+            document.getElementById("LezStatus").innerHTML = "Orario non disponibile";
+            flagAvailable = false;
+        }
+        else
+        {
+            document.getElementById("LezStatus").innerHTML = "";
+            flagAvailable = true;
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
+function addLezione()
+{
+    if(flagAvailable == true)
+    {
+        document.getElementById("LezStatus").innerHTML = "";
+        
+        var username = document.getElementById("username").innerHTML;
+        var dataora = document.getElementById("LezDate").value;
+        var idInsegnante = document.getElementById("LezInsegnante").value;
+
+        if(dataora == "" || idInsegnante == "")
+        {
+            document.getElementById("LezStatus").innerHTML = "Inserisci tutti i dati";
+        }
+        else
+        {
+            var lesson = {Username: username, DataOra: dataora, Insegnante: idInsegnante};
+
+            //preparo la richiesta ajax
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", 'api/apiLesson.php', true);
+            //configuro la callback di risposta ok
+            xhr.onload = function()
+            {
+                if(xhr.status==200)
+                {
+                    document.getElementById("LezStatus").innerHTML = "";
+                    getLezioni();
+                    showAddLezione();
+                    flagAvailable = false;
+                }
+            };
+            //configuro la callback di errore
+            xhr.onerror = function()
+            { 
+                alert('Errore');
+            };
+
+            //invio la richiesta ajax
+            xhr.send(JSON.stringify(lesson));
+        }
+    }
+    else
+    {
+        document.getElementById("LezStatus").innerHTML = "Orario non disponibile";
+    }
 }
 
 function modCod()

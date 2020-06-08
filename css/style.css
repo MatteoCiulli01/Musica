@@ -84,6 +84,11 @@ img {
 	text-align:center;
 }
 
+#LezStatus
+{
+    margin-top:10px;
+}
+
 /*Parti generali delle pagine (Container, Header, Content e Footer)*/
 .page-container {
     position: relative;
@@ -179,21 +184,26 @@ img {
 
 
 /*Canzone e Artista*/
-.canzone, .artista, .album
+.canzone, .artista, .album, .lezione
 {
     width:50%;
     border-top:solid white 1px;
     border-bottom:solid white 1px;
     white-space: nowrap;
-    
 }
 .canzone > div, .artista > div, .album > div
 {
     display: inline-block;
     padding:5px;
     font-size:16px;
-    
 }
+
+.lezione > div
+{
+    display: inline-block;
+    padding:5px;
+}
+
 .canzonetitolo, .albumnome, .albumNome_Artista
 {
     font-weight:bold;
@@ -297,6 +307,33 @@ img {
     margin-left:25px;
 }
 
+#LezEnterInsegnante
+{
+    margin-top : 10px;
+}
+
+#LezEnterDataOra
+{
+    width:50%;
+}
+
+.lessonDeleteButtons
+{
+    margin-left:50px;
+    margin:25px;
+}
+
+.lessonDeleteButtons > img
+{
+    width: 40px;
+    height: 40px;
+}
+
+.lessonDeleteButtons > img:hover
+{
+    cursor: pointer;
+}
+
 .TitleIcon
 {
     width: 200px;
@@ -348,7 +385,7 @@ img {
     cursor: pointer;
 }
 
-#addSongPanel, #addAlbumPanel
+#addSongPanel, #addAlbumPanel, #addLessonPanel
 {
     width:500px;
     margin-left:0px;

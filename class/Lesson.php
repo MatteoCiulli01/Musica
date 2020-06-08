@@ -1,10 +1,15 @@
 <?php
 	include('ConnectDB.php');
-	class Lezione
+	class Lesson
 	{
 		protected $db;
 		public $_id;
 		public $_data_ora;
+		public $_via;
+		public $_civico;
+		public $_cap;
+		public $_citta;
+		public $_url_mappa;
 		public $_id_utente;
 		public $_id_insegnante;
 
@@ -19,8 +24,8 @@
 		{
 			try
 			{
-				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante WHERE U.username = :username";
-				$stmt = $this-> db->prepare($sql);
+				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
+				$stmt = $this->db->prepare($sql);
                 $data = [
 					'username' => $username
 				];
@@ -33,33 +38,78 @@
 				die("Query error! ".$e);
 			}
 		}
-		
-        /*
-        //insert
-		public function insert()
+
+		public function getDropdownInsegnanti()
 		{
 			try
 			{
- 				$sql = 'INSERT INTO canzoni (titolo, durata, anno, genere, url_canzone, cod_album)  VALUES (:titolo, :durata, :anno, :genere, :url_canzone, :cod_album)';
-				$data = [
-					'titolo' => $this->_titolo,
-					'durata' => $this->_durata,
-					'anno' => $this->_anno,
-					'genere' => $this->_genere,
-					'url_canzone' => $this->_url_canzone,
-					'cod_album' => $this->_cod_album,
-				];
+				$sql = "SELECT id_insegnante, nome AS nomeInsegnante, cognome AS cognomeInsegnante FROM insegnanti";
 				$stmt = $this->db->prepare($sql);
-				$stmt->execute($data);
-				$status = $stmt->rowCount();
+				$stmt->execute();
+				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+				return $result;
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+		}
 
-				$id_canzone = $this->getLastId();
-				$id_artista = $this->getIdArtista($id_canzone);
+		public function checkifAvailable($id_insegnante, $data_ora)
+		{
+			$giorno = substr($data_ora, 0, 10);
+			$ora = substr($data_ora, 11,5) . ":00";
 
-				$sql = 'INSERT INTO canzone_artista (cod_canzone, cod_artista) VALUES (:id_canzone, :id_artista)';
+			$data_ora = $giorno . " " . $ora;
+			try
+			{
+				$sql = "SELECT id_lezione FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante WHERE I.id_insegnante = :id_insegnante AND DAY(L.data_ora) = DAY(:data_ora) AND L.data_ora BETWEEN DATE_SUB(:data_ora, INTERVAL 1 HOUR) AND DATE_ADD(:data_ora, INTERVAL 1 HOUR)";
+				$stmt = $this->db->prepare($sql);
 				$data = [
-					'id_canzone' => $id_canzone,
-					'id_artista' => $id_artista
+					'id_insegnante' => $id_insegnante,
+					'data_ora' => $data_ora
+				];
+				$stmt->execute($data);
+				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+				return $result;
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+		}
+
+		public function getInsMappa($id_insegnante)
+		{
+			try
+			{
+				$sql = "SELECT url_mappa FROM insegnanti WHERE id_insegnante = :id_insegnante";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id_insegnante' => $id_insegnante
+				];
+				$stmt->execute($data);
+				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+				return $result;
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+		}
+
+        //insert
+		public function insert()
+		{
+			$this->_id_utente = $this->getUserFromName($this->_id_utente);
+
+			try
+			{
+ 				$sql = 'INSERT INTO lezioni (data_ora, id_utente, id_insegnante)  VALUES (:data_ora, :id_utente, :id_insegnante)';
+				$data = [
+					'data_ora' => $this->_data_ora,
+					'id_utente' => $this->_id_utente,
+					'id_insegnante' => $this->_id_insegnante,
 				];
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute($data);
@@ -72,6 +122,48 @@
 			}
 		}
 
+		public function getUserFromName($username)
+		{
+			try
+			{
+				$sql = "SELECT U.id_utente FROM utenti U INNER JOIN credenziali C ON U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'username' => $username
+				];
+				$stmt->execute($data);
+				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
+				return $result["id_utente"];
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+		}
+
+		public function delete()
+		{
+			try
+			{
+				$status = 0;
+
+				$sql = "DELETE FROM lezioni WHERE id_lezione = :id";
+				$stmt = $this->db->prepare($sql);
+				$data = [
+					'id' => $this->_id
+				];
+				$stmt->execute($data);
+				$status = $stmt->rowCount();
+
+				return $status;
+			}
+			catch (Exception $e)
+			{
+				die("Oh noes! There's an error in the query! ".$e);
+			}
+		}
+
+		/*
 		public function getLastId()
 		{
 			try
@@ -101,36 +193,6 @@
 				$result = $stmt->fetch(\PDO::FETCH_ASSOC);
 				return $result;
 			} catch (Exception $e) {
-				die("Oh noes! There's an error in the query! ".$e);
-			}
-		}
-
-		public function delete()
-		{
-			try
-			{
-				$status = 0;
-
-				$sql = "DELETE FROM canzone_artista WHERE cod_canzone = :id";
-				$stmt = $this->db->prepare($sql);
-				$data = [
-					'id' => $this->_id
-				];
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-
-				$sql = "DELETE FROM canzoni WHERE id_canzone = :id";
-				$stmt = $this->db->prepare($sql);
-				$data = [
-					'id' => $this->_id
-				];
-				$stmt->execute($data);
-				$status += $stmt->rowCount();
-
-				return $status;
-			}
-			catch (Exception $e)
-			{
 				die("Oh noes! There's an error in the query! ".$e);
 			}
 		}
