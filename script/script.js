@@ -19,116 +19,155 @@ function output(array, classname, div)
             var key = Object.keys(array[element])[property]; //nome della proprietà
             var proprieta = Object.values(array[element])[property]; //valore della proprietà
 
-            if(classname=="canzone")
+            switch (classname)
             {
-                switch(key)
-                {
-                    case "id_canzone":
-                        obj.id=classname.slice(0,3)+proprieta; //esempio classname=canzone e id=1 --> can1
-                        break;
-                    case "url_canzone":
-                        var br = document.createElement("br");
-                        var divObj = document.createElement("audio");
-                        divObj.classname="canzoneaudio";
-                        divObj.setAttribute("controls",true);
-                        var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
-                        divObj.innerHTML ='<source src="'+urlcanzone+'" />';
-                        obj.appendChild(br);
-                        obj.appendChild(divObj);
-                        //var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
-                        //document.getElementById(div).innerHTML+='<audio controls><source src="'+urlcanzone+'" /></audio>';
-                        //non inserisce l'url delle canzoni
-                        break;
-                    
-                    case "titolo":
-                        var br = document.createElement("br");
-                        var divObj	= document.createElement("div");
-                        var text = document.createTextNode(proprieta);
-                        divObj.appendChild(text);
-                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
-                        obj.appendChild(divObj);
-                        obj.appendChild(br);
-                        break;
-
-                    case "url_cover":
-                        var divObj = document.createElement("img");
-                        divObj.className="canzonealbumcover";
-                        var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
-                        divObj.setAttribute("src",urlalbumcover);
-                        obj.appendChild(divObj);
-                        break;
-
-                    default:
-                        var divObj	= document.createElement("div");
-                        var text = document.createTextNode(proprieta);
-                        divObj.appendChild(text);
-                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
-                        obj.appendChild(divObj);
-                        break;
-                }
-            }
-            else if(classname=="album")
-            {
-                switch(key)
-                {
-                    case "id_album":
-                        obj.id=classname.slice(0,3)+proprieta; //esempio classname=album e id=1 --> alb1
-                        break;
-
-                    case "url_cover":
-                        var divObj = document.createElement("img");
-                        divObj.className="canzonealbumcover";
-                        var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
-                        divObj.setAttribute("src",urlalbumcover);
-                        obj.appendChild(divObj);
-                        break;
+                case "canzone":
+                    switch(key)
+                    {
+                        case "id_canzone":
+                            obj.id=classname.slice(0,3)+proprieta; //esempio classname=canzone e id=1 --> can1
+                            break;
+                        case "url_canzone":
+                            var br = document.createElement("br");
+                            var divObj = document.createElement("audio");
+                            divObj.classname="canzoneaudio";
+                            divObj.setAttribute("controls",true);
+                            var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
+                            divObj.innerHTML ='<source src="'+urlcanzone+'" />';
+                            obj.appendChild(br);
+                            obj.appendChild(divObj);
+                            //var urlcanzone = Object.values(array[element])[property]; //salva l'url nella variabile
+                            //document.getElementById(div).innerHTML+='<audio controls><source src="'+urlcanzone+'" /></audio>';
+                            //non inserisce l'url delle canzoni
+                            break;
                         
-                    default:
-                        var divObj	= document.createElement("div");
-                        var text = document.createTextNode(proprieta);
-                        divObj.appendChild(text);
-                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
-                        obj.appendChild(divObj);
-                        break;
-                }
-            }
-            else if(classname=="lezione")
-            {
-                switch(key)
-                {
-                    case "id_lezione":
-                        obj.id=classname.slice(0,3)+proprieta;
-                        break;
+                        case "titolo":
+                            var br = document.createElement("br");
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            obj.appendChild(br);
+                            break;
 
-                    case "data_ora":
-                        var br = document.createElement("br");
-                        var divObj	= document.createElement("div");
-                        var text = document.createTextNode(proprieta);
-                        divObj.appendChild(text);
-                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
-                        obj.appendChild(divObj);
-                        obj.appendChild(br);
-                        break;
-                        
-                    default:
-                        var divObj	= document.createElement("div");
-                        var text = document.createTextNode(proprieta);
-                        divObj.appendChild(text);
-                        divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
-                        obj.appendChild(divObj);
-                        break;
-                }
-                obj.style.fontWeight = "bold";
-                obj.style.fontSize = "22px";
-            }
-            else
-            {
-                var divObj	= document.createElement("div");
-                var text = document.createTextNode(proprieta);
-                divObj.appendChild(text);
-                divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
-                obj.appendChild(divObj);
-            }
+                        case "url_cover":
+                            var divObj = document.createElement("img");
+                            divObj.className="canzonealbumcover";
+                            var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
+                            divObj.setAttribute("src",urlalbumcover);
+                            obj.appendChild(divObj);
+                            break;
+
+                        default:
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            break;
+                    }
+                    break;
+
+                case "album":
+                    switch(key)
+                    {
+                        case "id_album":
+                            obj.id=classname.slice(0,3)+proprieta; //esempio classname=album e id=1 --> alb1
+                            break;
+
+                        case "url_cover":
+                            var divObj = document.createElement("img");
+                            divObj.className="canzonealbumcover";
+                            var urlalbumcover = Object.values(array[element])[property]; //salva l'url nella variabile
+                            divObj.setAttribute("src",urlalbumcover);
+                            obj.appendChild(divObj);
+                            break;
+                            
+                        default:
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            break;
+                    }
+                    break;
+
+                case "lezione":
+                    switch(key)
+                    {
+                        case "id_lezione":
+                            obj.id=classname.slice(0,3)+proprieta;
+                            break;
+
+                        case "data_ora":
+                            var br = document.createElement("br");
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            obj.appendChild(br);
+                            break;
+
+                        case "url_mappa":
+                            var br = document.createElement("br");
+                            var iframeObj	= document.createElement("iframe");
+                            iframeObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            iframeObj.setAttribute("src", proprieta);
+                            iframeObj.style.width = "250px";
+                            iframeObj.style.height = "250px";
+                            obj.appendChild(br);
+                            obj.appendChild(iframeObj);
+                            break;
+                            
+                        default:
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            break;
+                    }
+                    obj.style.fontWeight = "bold";
+                    obj.style.fontSize = "22px";
+                    break;
+                case "mappa":
+                    switch(key)
+                    {
+                        case "url_mappa":
+                            var br = document.createElement("br");
+                            var iframeObj	= document.createElement("iframe");
+                            iframeObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            iframeObj.id = "frame" + obj.id; //esempio framemap1;
+                            iframeObj.setAttribute("src", proprieta);
+                            iframeObj.setAttribute("onmouseover", 'getLezioni(\''+ iframeObj.id +'\')');
+                            iframeObj.style.width = "400px";
+                            iframeObj.style.height = "400px";
+                            obj.appendChild(br);
+                            obj.appendChild(iframeObj);
+                            break;
+                            break;
+
+                        default:
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            break;
+                    }
+                    break;
+                
+                default:
+                    var divObj	= document.createElement("div");
+                    var text = document.createTextNode(proprieta);
+                    divObj.appendChild(text);
+                    divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                    obj.appendChild(divObj);
+                    break;
+        }
             
             /*
             //generazione delle proprietà dell'oggetto in HTML
@@ -179,7 +218,7 @@ function output(array, classname, div)
         {
             obj.appendChild(adminButtons(obj.id));
         }
-        if(classname == "lezione")
+        if(window.location.pathname == "/pageLezioniUser.php" && classname == "lezione")
         {
             obj.appendChild(lessonDeleteButtons(obj.id));
         }
@@ -276,7 +315,7 @@ function deleteObject(objName)
         xhr.onload = function()
         {
             var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
-            getLezioni();
+            getLezioniUser();
         };
         //configuro la callback di errore
         xhr.onerror = function()
@@ -625,7 +664,85 @@ function getAlbumDropdown()
     xhr.send();
 }
 
-function getLezioni()
+function getMappe()
+{
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETMAPS", 'api/apiLesson.php', true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        if(xhr.response=="")
+        {
+            document.getElementById("contentLezioni").innerHTML = "Non ci sono lezioni pianificate.";
+            document.getElementById("contentLezioni").style.fontWeight = "bold";
+            document.getElementById("contentLezioni").style.fontSize = "23px";
+        }
+        else
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            output(obj, "mappa", "contentLezioni"); //output dell'oggetto lezione
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send();
+}
+
+function showLezioniALL()
+{
+    if(document.getElementById("contentLezioniALL").style.display=="block")
+    {
+        document.getElementById("contentLezioniALL").style.display = "hidden";
+    }
+    else
+    {
+        document.getElementById("contentLezioniALL").style.display = "block";
+    }
+}
+
+function getLezioni(map)
+{
+    map = document.getElementById(map).src;
+    var mappa = {"map": map};
+
+    //preparo la richiesta ajax
+    let xhr = new XMLHttpRequest();
+    xhr.open("GETLEZ", 'api/apiLesson.php', true);
+    //configuro la callback di risposta ok
+    xhr.onload = function()
+    {
+        if(xhr.response=="")
+        {
+            showLezioniALL();
+            document.getElementById("contentLezioniALL").innerHTML = "Non ci sono lezioni pianificate.";
+            document.getElementById("contentLezioniALL").style.fontWeight = "bold";
+            document.getElementById("contentLezioniALL").style.fontSize = "23px";
+            return;
+        }
+        else
+        {
+            var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
+            showLezioniALL();
+            output(obj, "lezioneALL", "contentLezioniALL"); //output dell'oggetto lezione
+            document.getElementById("contentLezioniALL").innerHTML+='<img id="btncloseLezioniALL" onclick="showLezioniALL();" src="img/close.png">';
+            return;
+        }
+    };
+    //configuro la callback di errore
+    xhr.onerror = function()
+    { 
+        alert('Errore');
+    };
+    //invio la richiesta ajax
+    xhr.send(JSON.stringify(mappa));
+}
+
+function getLezioniUser()
 {
     var user = document.getElementById("username").innerHTML;
     //preparo la richiesta ajax
@@ -667,6 +784,7 @@ function showAddLezione()
 
         document.getElementById("addLessonPanel").style.display = "block";
         boolShowAddLezione = true;
+        document.documentElement.scrollTop = document.documentElement.scrollHeight;
     }
     else
     {
@@ -806,7 +924,7 @@ function addLezione()
                 if(xhr.status==200)
                 {
                     document.getElementById("LezStatus").innerHTML = "";
-                    getLezioni();
+                    getLezioniUser();
                     showAddLezione();
                     flagAvailable = false;
                 }
@@ -957,12 +1075,17 @@ function countdown() { //countdown reindirizzamento pagina
 /* Quando si clicca sul bottone si apre il dropdown */
 function DropdownFunction()
 {
+    //animazione di transizione del menu laterale
+    document.getElementById("Dropdown").style.left= "100%";
+    document.getElementById("Dropdown").style.transition= "left 200ms linear";
     document.getElementById("Dropdown").classList.toggle("show");
+    
     var w = window.innerWidth
     || document.documentElement.clientWidth
     || document.body.clientWidth;
     document.getElementById("Dropdown").style.left = w - document.getElementById("Dropdown").offsetWidth + "px";
 }
+
 function controlloCod()
 {
     var confirm_code = document.getElementById('confCod').value;

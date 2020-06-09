@@ -1,9 +1,42 @@
 <?php //DA ADATTARE I METODI ALLE CLASSI DEL DATABASE
 	$requestMethod = $_SERVER["REQUEST_METHOD"];
-	include('../class/Lesson.php');
+	include(__DIR__ . '/../class/Lesson.php');
 	$lesson = new Lesson();
 	switch($requestMethod)
 	{
+		case 'GETLEZ':
+			$map = json_decode(file_get_contents("php://input"),true);
+			$url = $map["map"];
+
+            $data = $lesson->getAll($url);
+            
+			if(!empty($data))
+			{
+				$js_encode = json_encode($data, true);
+			}
+			else
+			{
+				$js_encode = "";
+			}
+			header('Content-Type: application/json');
+			echo $js_encode;
+			break;
+
+		case 'GETMAPS':
+			$data = $lesson->getMaps();
+			
+			if(!empty($data))
+			{
+				$js_encode = json_encode($data, true);
+			}
+			else
+			{
+				$js_encode = "";
+			}
+			header('Content-Type: application/json');
+			echo $js_encode;
+			break;
+
 		case 'GETUSER':
             $data = $lesson->getAllUser($_GET["user"]);
             

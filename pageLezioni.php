@@ -16,34 +16,52 @@
 
 		<?php session_start();?>
 	</head>
-	<body onload="getLezioni();" class="mainbody">
+	<body onload="getMappe();" class="mainbody">
 		<div class="page-container">
 			<!-- start: PAGE HEADER-->
 			<div class="page-header-wrapper">
 				<div class="page-header" >
-					<a href="./indexUser.php"><img src="img/Musica.png" class="TitleIcon"></a>
+                    <a href="./indexUser.php"><img src="img/Musica.png" class="TitleIcon"></a>
+                    
+                    <?php
+                        if(isset($_SESSION["user"])) //nel caso l'utente abbia effettuato il login
+                        {
+                            echo    '<a href="./pageLezioni.php" class="link linkLezioni"><img class="dropbtn" src="img/lesson.png">Lezioni</a>
+                                    <a href="./pageLezioniUser.php" class="link linkLezioni"><img class="dropbtn" src="img/lessonuser.png">Le Tue Lezioni</a>';
+                        }
+                    ?>
+
 					<div class="User">
 						<?php
 							if(isset($_SESSION["user"])) //nel caso l'utente abbia effettuato il login
 							{
-								echo '<div id="username" class="usernameDisplay">' . $_SESSION["user"] . '</div>';
+                                echo '<div id="username" class="usernameDisplay">' . $_SESSION["user"] . '</div>';
+                                echo    '<img onclick="DropdownFunction()" class="dropbtn" src="img/Utente.png">
+                                        <div id="Dropdown" class="dropdown-content">
+                                            <img class="leftarrow" src="img/leftarrow.png" onclick="DropdownFunction()">
+                                            <a href="indexUser.php">Home</a>
+                                            <a href="pageLezioniUser.php">Le Tue Lezioni</a>
+                                            <a href="pageLezioni.php?logout=true">Log Out</a>
+                                        </div>';
 							}
 							else //nel caso l'utente non sia loggato
 							{
-								session_destroy();
-								header("Location: ./index.html");
+                                echo    '<div class="loginAlert"><a href="LogIn.php">Effettua il login</a></div>
+                                            <img onclick="DropdownFunction()" class="dropbtn" src="img/Utente.png">
+                                            <div id="Dropdown" class="dropdown-content">
+                                            <img class="leftarrow" src="img/leftarrow.png" onclick="DropdownFunction()">
+                                            <a href="indexUser.php">Home</a>
+                                            <a href="SignUp.php">Sign Up</a>
+                                            <a href="LogIn.php">Log In</a>
+                                        </div>';
 							}
 
 							if(isset($_GET["logout"])) //alla pressione del bottone di logout
 							{
 								session_destroy();
-								header("Location: ./index.html");
+								header("Location: ./pageLezioni.php");
 							}
 						?>
-						<input onclick="DropdownFunction()" class="dropbtn" type="image" src="img/Utente.png" ></input>
-						<div id="Dropdown" class="dropdown-content">
-							<a href="indexUser.php?logout=true">Log Out</a>
-						</div>
 					</div>
 
 				</div>
@@ -54,30 +72,12 @@
 			<div class="page-content-wrapper">
 				<div class="page-content">
 					<h2>Lezioni</h2>
-					<div id="contentLezioni"></div>
-					<img class="addBtn" src="./img/addbtn.png" onclick="showAddLezione();"></img>
-					<div id="addLessonPanel" class="modulo">
-						<form method="post">
-							<h2>Pianifica lezione</h2>
-							<div id="LezEnterDataOra">
-								<label>Data e ora</label>
-								<input onchange="checkifLessonAvailable()" type="datetime-local" id="LezDate" name = "datetime" class="form-control" placeholder="Data e ora" required>
-							</div>
-							<div id="LezEnterInsegnante">
-								<label>Insegnante</label>
-								<select id="LezInsegnante" onchange="getInsegnantiMap(); checkifLessonAvailable()">
-								</select>
-							</div>
-							<div id="LezLuogo">
-								<iframe id="LezMappa" src="" width="100%" height="350px" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-							</div>
-						</form>
-						<div class="add-btn">
-							<button class="btn btn-primary" name="Aggiungi" onclick="addLezione()">Aggiungi</button>
-							<button class="btn btn-secondary" name="Annulla" onclick="showAddLezione()">Annulla</button>
-						</div>
-						<div id="LezStatus" class="status"></div>
-					</div>
+					<div id="contentLezioni">
+                        <!-- DOVE VERRANNO MOSTRATE LE MAPPE -->
+                    </div>
+                    <div id="contentLezioniALL" class="modulo">
+                        <!-- DOVE VERRANNO MOSTRATE LE LEZIONI -->
+                    </div>
 				</div>
 			</div>
 			<!-- end: PAGE CONTENT-->

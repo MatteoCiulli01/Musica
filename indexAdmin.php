@@ -22,9 +22,12 @@
 			<div class="page-header-wrapper">
 				<div class="page-header" >
 					<a href="./indexAdmin.php"><img src="img/Musica.png" class="TitleIcon"></a>
+					<a href="./pageLezioni.php" class="link linkLezioni"><img class="dropbtn" src="img/lesson.png">Lezioni</a>
 					<div class="User">
-						<input onclick="DropdownFunction()" class="dropbtn adminLogo" type="image" src="img/admin.png"></input>
+						<img onclick="DropdownFunction()" class="dropbtn adminLogo" src="img/admin.png">
 						<div id="Dropdown" class="dropdown-content">
+							<img class="leftarrow" src="img/leftarrow.png" onclick="DropdownFunction()">
+							<a href="indexAdmin.php">Home</a>
 							<a href="indexAdmin.php?logout=true">Log Out</a>
 						</div>
 						<?php

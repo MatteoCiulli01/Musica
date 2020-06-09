@@ -19,12 +19,54 @@
 			$this->db = $this->db->returnConnection();
 		}
 
-		// getAll 
+		// getAllUser
+		public function getAll($url_map)
+		{
+			try
+			{
+				$sql = "SET lc_time_names = 'it_IT'";
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute();
+
+				$sql = "SELECT I.nome nome_insegnante, I.cognome cognome_insegnante, COUNT(DISTINCT L.id_utente) utenti, MONTHNAME(L.data_ora) mese FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante
+						WHERE I.url_mappa = :map
+						GROUP BY I.url_mappa, I.id_insegnante, mese";
+				$stmt = $this->db->prepare($sql);
+                $data = [
+					'map' => $url_map
+				];
+				$stmt->execute($data);
+				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+				return $result;
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+		}
+
+		public function getMaps()
+		{
+			try
+			{
+				$sql = "SELECT DISTINCT url_mappa FROM insegnanti";
+				$stmt = $this->db->prepare($sql);
+				$stmt->execute();
+				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+				return $result;
+			}
+			catch (Exception $e)
+			{
+				die("Query error! ".$e);
+			}
+		}
+
+		// getAllUser
 		public function getAllUser($username)
 		{
 			try
 			{
-				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
+				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante, I.url_mappa FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
 				$stmt = $this->db->prepare($sql);
                 $data = [
 					'username' => $username
