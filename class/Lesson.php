@@ -24,7 +24,7 @@
 		{
 			try
 			{
-				$sql = "SELECT YEAR(L.data_ora) anno, MONTH(L.data_ora) mese, I.nome nome_insegnante, I.cognome cognome_insegnante, COUNT(DISTINCT L.id_utente) utenti FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante
+				$sql = "SELECT YEAR(L.data_ora) anno, MONTH(L.data_ora) mese, I.nome nome_insegnante, I.cognome cognome_insegnante, I.strumento, COUNT(DISTINCT L.id_utente) utenti FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante
 						WHERE I.url_mappa = :map
 						GROUP BY I.url_mappa, I.id_insegnante, anno, mese";
 				$stmt = $this->db->prepare($sql);
@@ -62,7 +62,7 @@
 		{
 			try
 			{
-				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante, I.url_mappa FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
+				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante, I.strumento, I.url_mappa FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
 				$stmt = $this->db->prepare($sql);
                 $data = [
 					'username' => $username
@@ -81,7 +81,7 @@
 		{
 			try
 			{
-				$sql = "SELECT id_insegnante, nome AS nomeInsegnante, cognome AS cognomeInsegnante FROM insegnanti";
+				$sql = "SELECT id_insegnante, nome AS nomeInsegnante, cognome AS cognomeInsegnante, strumento FROM insegnanti";
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute();
 				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);

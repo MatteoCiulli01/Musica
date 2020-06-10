@@ -114,6 +114,15 @@ function output(array, classname, div)
                             obj.appendChild(br);
                             break;
 
+                        case "strumento":
+                            var br = document.createElement("br");
+                            var strumento = document.createElement("div");
+                            strumento.innerHTML = "Strumento: " + proprieta;
+                            strumento.className = classname + key;
+                            obj.appendChild(br);
+                            obj.appendChild(strumento);
+                            break;
+
                         case "url_mappa":
                             var br = document.createElement("br");
                             var iframeObj	= document.createElement("iframe");
@@ -212,6 +221,13 @@ function output(array, classname, div)
                             obj.appendChild(fullName);
                             break;
 
+                        case "strumento":
+                            var strumento = document.createElement("div");
+                            strumento.innerHTML = "Strumento: <b class=\"orange\">" + proprieta +"</b>";
+                            strumento.className = classname + key;
+                            obj.appendChild(strumento);
+                            break;
+    
                         case "utenti":
                             var allievi = document.createElement("div");
                             allievi.innerHTML="Allievi: <b>" + proprieta+ "</b>";
@@ -870,7 +886,7 @@ function getInsegnantiDropdown()
             {
                 option = document.createElement('option');
                 option.setAttribute('value', obj[i].id_insegnante);
-                option.appendChild(document.createTextNode(obj[i].nomeInsegnante + " " + obj[i].cognomeInsegnante));
+                option.appendChild(document.createTextNode(obj[i].nomeInsegnante + " " + obj[i].cognomeInsegnante + " - " + obj[i].strumento));
                 select.appendChild(option);
             }
 
