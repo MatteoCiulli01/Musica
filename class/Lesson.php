@@ -24,9 +24,9 @@
 		{
 			try
 			{
-				$sql = "SELECT YEAR(L.data_ora) anno, MONTH(L.data_ora) mese, I.nome nome_insegnante, I.cognome cognome_insegnante, I.strumento, COUNT(DISTINCT L.id_utente) utenti FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante
-						WHERE I.url_mappa = :map
-						GROUP BY I.url_mappa, I.id_insegnante, anno, mese";
+				$sql = "SELECT YEAR(L.data_ora) anno, MONTH(L.data_ora) mese, I.nome nome_insegnante, I.cognome cognome_insegnante, I.strumento, COUNT(DISTINCT L.id_utente) utenti FROM lezioni L INNER JOIN insegnanti I INNER JOIN scuole S INNER JOIN insegnante_scuola INSC ON L.id_insegnante = I.id_insegnante AND S.id_scuola = INSC.id_scuola AND I.id_insegnante = INSC.id_insegnante
+						WHERE S.url_mappa = :map
+						GROUP BY S.url_mappa, I.id_insegnante, anno, mese";
 				$stmt = $this->db->prepare($sql);
                 $data = [
 					'map' => $url_map
@@ -45,7 +45,7 @@
 		{
 			try
 			{
-				$sql = "SELECT DISTINCT url_mappa FROM insegnanti";
+				$sql = "SELECT DISTINCT url_mappa FROM scuole";
 				$stmt = $this->db->prepare($sql);
 				$stmt->execute();
 				$result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -62,7 +62,7 @@
 		{
 			try
 			{
-				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante, I.strumento, I.url_mappa FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali WHERE C.username = :username";
+				$sql = "SELECT L.id_lezione, L.data_ora, I.nome AS NomeInsegnante, I.cognome AS CognomeInsegnante, I.strumento, S.url_mappa FROM lezioni L INNER JOIN insegnanti I INNER JOIN utenti U INNER JOIN credenziali C INNER JOIN scuole S INNER JOIN insegnante_scuola INSC ON L.id_utente = U.id_utente AND L.id_insegnante = I.id_insegnante AND U.cod_credenziali = C.id_credenziali AND S.id_scuola = INSC.id_scuola AND I.id_insegnante = INSC.id_insegnante WHERE C.username = :username";
 				$stmt = $this->db->prepare($sql);
                 $data = [
 					'username' => $username
@@ -121,7 +121,7 @@
 		{
 			try
 			{
-				$sql = "SELECT url_mappa FROM insegnanti WHERE id_insegnante = :id_insegnante";
+				$sql = "SELECT S.url_mappa FROM insegnanti I INNER JOIN scuole S INNER JOIN insegnante_scuola INSC ON S.id_scuola = INSC.id_scuola AND I.id_insegnante = INSC.id_insegnante WHERE I.id_insegnante = :id_insegnante";
 				$stmt = $this->db->prepare($sql);
 				$data = [
 					'id_insegnante' => $id_insegnante
