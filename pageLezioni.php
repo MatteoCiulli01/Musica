@@ -22,12 +22,12 @@
 			<div class="page-header-wrapper">
 				<div class="page-header" >
                     <a href="./indexUser.php"><img src="img/Musica.png" class="TitleIcon"></a>
+					<a href="./pageLezioni.php" class="link linkLezioni"><img class="dropbtn" src="img/lesson.png">Lezioni</a>
                     
                     <?php
                         if(isset($_SESSION["user"])) //nel caso l'utente abbia effettuato il login
                         {
-                            echo    '<a href="./pageLezioni.php" class="link linkLezioni"><img class="dropbtn" src="img/lesson.png">Lezioni</a>
-                                    <a href="./pageLezioniUser.php" class="link linkLezioni"><img class="dropbtn" src="img/lessonuser.png">Le Tue Lezioni</a>';
+                            echo    '<a href="./pageLezioniUser.php" class="link linkLezioni"><img class="dropbtn" src="img/lessonuser.png">Le Tue Lezioni</a>';
                         }
                     ?>
 

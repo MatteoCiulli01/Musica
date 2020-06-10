@@ -102,11 +102,14 @@ function output(array, classname, div)
                             break;
 
                         case "data_ora":
+                            proprieta = proprieta.slice(0,10) + "T" + proprieta.slice(11,16);
+
                             var br = document.createElement("br");
-                            var divObj	= document.createElement("div");
-                            var text = document.createTextNode(proprieta);
-                            divObj.appendChild(text);
+                            var divObj	= document.createElement("input");
                             divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            divObj.setAttribute("readonly", "true");
+                            divObj.setAttribute("type", "datetime-local");
+                            divObj.setAttribute("value", proprieta);
                             obj.appendChild(divObj);
                             obj.appendChild(br);
                             break;
@@ -133,23 +136,89 @@ function output(array, classname, div)
                     obj.style.fontWeight = "bold";
                     obj.style.fontSize = "22px";
                     break;
+
                 case "mappa":
                     switch(key)
                     {
                         case "url_mappa":
                             var br = document.createElement("br");
-                            var iframeObj	= document.createElement("iframe");
+                            var iframeObj = document.createElement("iframe");
                             iframeObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
                             iframeObj.id = "frame" + obj.id; //esempio framemap1;
                             iframeObj.setAttribute("src", proprieta);
                             iframeObj.setAttribute("onmouseover", 'getLezioni(\''+ iframeObj.id +'\')');
-                            iframeObj.style.width = "400px";
-                            iframeObj.style.height = "400px";
+                            iframeObj.style.width = "250px";
+                            iframeObj.style.height = "250px";
                             obj.appendChild(br);
                             obj.appendChild(iframeObj);
                             break;
+
+                        default:
+                            var divObj	= document.createElement("div");
+                            var text = document.createTextNode(proprieta);
+                            divObj.appendChild(text);
+                            divObj.className = classname + key; //esempio classname=canzone e key=titolo --> canzonetitolo
+                            obj.appendChild(divObj);
+                            break;
+                    }
+                    break;
+
+                case "lezioneALL":
+                    var annoMappa;
+                    var nome;
+                    switch(key)
+                    {
+                        case "anno":
+                            annoMappa = proprieta;
                             break;
 
+                        case "mese":
+                            var arrayMesi;
+                            var anno = annoMappa;
+                            var input = document.createElement("input");
+
+                            if(proprieta.length==1)
+                            {
+                                proprieta = "0" + proprieta;
+                            }
+
+                            if(obj.id.slice(3)>1)
+                            {
+                                arrayMesi = document.getElementsByClassName("lezioneALLmese");
+                            }
+
+                            if(arrayMesi != null && arrayMesi[arrayMesi.length-1].value == anno+"-"+proprieta)
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                input.className = classname + key;
+                                input.setAttribute("type", "month");
+                                input.setAttribute("value", anno+"-"+proprieta); //esempio 2020-06
+                                input.setAttribute("readonly", "true");
+                                obj.appendChild(input);
+                            }
+                            break;
+
+                        case "nome_insegnante":
+                            nome = proprieta;
+                            break;
+
+                        case "cognome_insegnante":
+                            var fullName = document.createElement("div");
+                            fullName.innerHTML = "Insegnante: <b class=\"orange\">" +nome + " "+proprieta+"</b>";
+                            fullName.className = "fullname_insegnante" + key;
+                            obj.appendChild(fullName);
+                            break;
+
+                        case "utenti":
+                            var allievi = document.createElement("div");
+                            allievi.innerHTML="Allievi: <b>" + proprieta+ "</b>";
+                            allievi.className = classname + key;
+                            obj.appendChild(allievi);
+                            break;
+                        
                         default:
                             var divObj	= document.createElement("div");
                             var text = document.createTextNode(proprieta);
@@ -693,16 +762,9 @@ function getMappe()
     xhr.send();
 }
 
-function showLezioniALL()
+function hideLezioniALL()
 {
-    if(document.getElementById("contentLezioniALL").style.display=="block")
-    {
-        document.getElementById("contentLezioniALL").style.display = "hidden";
-    }
-    else
-    {
-        document.getElementById("contentLezioniALL").style.display = "block";
-    }
+    document.getElementById("contentLezioniALL").style.display = "none";
 }
 
 function getLezioni(map)
@@ -718,19 +780,18 @@ function getLezioni(map)
     {
         if(xhr.response=="")
         {
-            showLezioniALL();
+            document.getElementById("contentLezioniALL").style.display = "block";
             document.getElementById("contentLezioniALL").innerHTML = "Non ci sono lezioni pianificate.";
             document.getElementById("contentLezioniALL").style.fontWeight = "bold";
             document.getElementById("contentLezioniALL").style.fontSize = "23px";
-            return;
+            document.getElementById("contentLezioniALL").innerHTML += '<img id="btncloseLezioniALL" onclick="hideLezioniALL();" src="img/close.png">';
         }
         else
         {
             var obj = JSON.parse(xhr.response); //viene creato un oggetto dal JSON ricevuto
-            showLezioniALL();
+            document.getElementById("contentLezioniALL").style.display = "block";
             output(obj, "lezioneALL", "contentLezioniALL"); //output dell'oggetto lezione
-            document.getElementById("contentLezioniALL").innerHTML+='<img id="btncloseLezioniALL" onclick="showLezioniALL();" src="img/close.png">';
-            return;
+            document.getElementById("contentLezioniALL").innerHTML+='<img id="btncloseLezioniALL" onclick="hideLezioniALL();" src="img/close.png">';
         }
     };
     //configuro la callback di errore

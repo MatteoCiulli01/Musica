@@ -204,6 +204,41 @@ img {
     padding:5px;
 }
 
+.lezione
+{
+    padding-top:25px;
+}
+
+#titoloLezioniUser
+{
+    margin-bottom: 25px;
+}
+
+#LezEnterInsegnante, #LezEnterDataOra, #LezLuogo
+{
+    margin-top: 10px;
+    margin-bottom : 10px;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+#LezEnterInsegnante select, #LezEnterDataOra input
+{
+    font-weight: bold;
+}
+
+#addLezioniBtn
+{
+    height : 60px;
+    width : 60px;
+    margin-left: 25px;
+}
+
+#addLezioniBtn:hover
+{
+    cursor:pointer;
+}
+
 .canzonetitolo, .albumnome, .albumNome_Artista
 {
     font-weight:bold;
@@ -388,6 +423,11 @@ img {
     float:right;
 }
 
+.orange
+{
+    color: #eb9b28;
+}
+
 #contentLezioniALL
 {
     position: fixed;
@@ -409,6 +449,22 @@ img {
 #btncloseLezioniALL:hover
 {
     cursor: pointer;
+}
+
+.lezioneALL
+{
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.lezioneALL div, .lezioneALL input
+{
+    margin : 5px;
+}
+
+.lezioneALLmese
+{
+    font-weight: bold;
 }
 
 .TitleIcon

@@ -24,13 +24,9 @@
 		{
 			try
 			{
-				$sql = "SET lc_time_names = 'it_IT'";
-				$stmt = $this->db->prepare($sql);
-				$stmt->execute();
-
-				$sql = "SELECT I.nome nome_insegnante, I.cognome cognome_insegnante, COUNT(DISTINCT L.id_utente) utenti, MONTHNAME(L.data_ora) mese FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante
+				$sql = "SELECT YEAR(L.data_ora) anno, MONTH(L.data_ora) mese, I.nome nome_insegnante, I.cognome cognome_insegnante, COUNT(DISTINCT L.id_utente) utenti FROM lezioni L INNER JOIN insegnanti I ON L.id_insegnante = I.id_insegnante
 						WHERE I.url_mappa = :map
-						GROUP BY I.url_mappa, I.id_insegnante, mese";
+						GROUP BY I.url_mappa, I.id_insegnante, anno, mese";
 				$stmt = $this->db->prepare($sql);
                 $data = [
 					'map' => $url_map
